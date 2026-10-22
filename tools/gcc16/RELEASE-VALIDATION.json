@@ -26,7 +26,13 @@
       "firmware_total": 25,
       "environment": "Ubuntu 22.04 amd64 under Linux Rosetta; native ARM64 VZ VM",
       "extracted_install_checks": true,
-      "ctags_without_TMPDIR": true
+      "ctags_without_TMPDIR": true,
+      "native_ci": true,
+      "native_upstream_examples": 23,
+      "native_ci_run": "https://github.com/juliendorra/CHGame/actions/runs/39853639907",
+      "native_environment": "Linux-6.8.0-1064-azure-x86_64-with-glibc2.35",
+      "native_binary_hashes_verified": 47,
+      "native_firmware_identical_to_macos_arm64": 23
     },
     "windows-x86_64": {
       "status": "default linker-plugin LTO configuration being corrected; native validation pending",
