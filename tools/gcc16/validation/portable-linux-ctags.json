@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "TMPDIR": "unset",
+  "runtime_fallback": "/tmp",
+  "functions": [
+    "setup",
+    "loop"
+  ]
+}

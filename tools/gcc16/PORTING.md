@@ -65,3 +65,16 @@ the Windows build and Linux firmware replay. Build objects were preserved and
 jobs resumed. The cause of the host reboot is not established.
 
 LLVM remains a separate exploration. It is not included in this GCC preview.
+
+A relocated Linux-package check also caught ctags embedding the build's TMPDIR
+in its configured runtime fallback. With TMPDIR unset, it tried to create files
+in an absent build directory. The portable recipe now passes
+`--enable-tmpdir=/tmp` and reconfigures older ctags build directories. Both Mac
+hosts and Linux pass prototype extraction without TMPDIR. The helper-only stage
+also now creates prefix/bin before copying ctags into a new prefix.
+
+The final Windows link stage revealed another Canadian-cross dependency:
+GCC's specs rule calls a build-host RISC-V GCC. Merely reusing target libraries
+did not supply that executable. The recipe now locates GCC 16.2 in the supplied
+Linux runtime prefix or requires an explicit `--build-target-compiler`, checks
+its version, and passes `GCC_FOR_TARGET` on every make invocation.

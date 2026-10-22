@@ -9,6 +9,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import re
 import shutil
 import subprocess
 
@@ -64,6 +65,8 @@ def main():
     ap.add_argument("--sources", type=Path)
     ap.add_argument("--target-runtime", type=Path,
                     help="Reuse matching GCC 16.2 RISC-V headers/libraries from this prefix")
+    ap.add_argument("--build-target-compiler", type=Path,
+                    help="Build-host GCC 16.2 executable for Canadian-cross specs generation")
     ap.add_argument("--board-runtime", type=Path,
                     help="Vendor riscv-none-embed directory with include/ and lib/rv32imacxw/ilp32/")
     ap.add_argument("--stage", choices=("all", "prepare", "binutils", "gcc", "ctags", "finish"), default="all")
@@ -76,6 +79,17 @@ def main():
         ap.error("Use an x86-64 Linux build environment")
     if windows and not args.target_runtime:
         ap.error("Windows Canadian cross build needs --target-runtime from a completed matching build")
+    build_target = None
+    if windows and args.stage in ("all", "gcc"):
+        build_target = (args.build_target_compiler or args.target_runtime / "bin/riscv-none-elf-gcc").resolve()
+        if not build_target.is_file():
+            ap.error("Windows build needs --build-target-compiler pointing to a Linux-hosted GCC 16.2")
+        try:
+            version = subprocess.check_output([str(build_target), "-dumpfullversion"], text=True).strip()
+        except (OSError, subprocess.CalledProcessError) as error:
+            ap.error(f"Cannot execute build-host target compiler: {error}")
+        if version != "16.2.0":
+            ap.error("Build-host target compiler must be GCC 16.2.0")
     base.WORK = (args.work or base.ROOT / ".toolchains/release" / args.host).resolve()
     base.PREFIX = base.WORK / "prefix"
     if args.sources:
@@ -132,6 +146,8 @@ def main():
                           "CXX_FOR_BUILD=" + env["CXX_FOR_BUILD"],
                           "CFLAGS_FOR_BUILD=" + env["CFLAGS_FOR_BUILD"],
                           "CXXFLAGS_FOR_BUILD=" + env["CXXFLAGS_FOR_BUILD"]]
+            if build_target:
+                arguments.append("GCC_FOR_TARGET=" + str(build_target))
             if windows:
                 arguments.append("LDFLAGS=" + env["LDFLAGS"])
         if windows:
@@ -178,12 +194,18 @@ def main():
             if fixed != data:
                 path.write_bytes(fixed)
         folder = base.WORK / "build/ctags"
+        config = folder / "config.h"
+        if config.exists() and not re.search(r'^#define TMPDIR "/tmp"$', config.read_text(), re.M):
+            # Old ctags captures the builder's TMPDIR as a runtime fallback.
+            # Reconfigure only this helper when resuming an older build.
+            shutil.rmtree(folder)
         folder.mkdir(parents=True, exist_ok=True)
         if not (folder / "Makefile").exists():
             command([source / "configure", "--build=" + build, "--host=" + host,
-                     "--prefix=" + str(base.PREFIX)], folder, base.WORK / "ctags.log", env)
+                     "--enable-tmpdir=/tmp", "--prefix=" + str(base.PREFIX)], folder, base.WORK / "ctags.log", env)
         command(["make", f"-j{jobs}", "LDFLAGS=" + env.get("LDFLAGS", "")],
                 folder, base.WORK / "ctags.log", env)
+        (base.PREFIX / "bin").mkdir(parents=True, exist_ok=True)
         shutil.copy2(folder / ("ctags.exe" if windows else "ctags"), base.PREFIX / "bin")
     if args.stage in ("finish", "all", "gcc"):
         finish(base.PREFIX, windows)

@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "source_files_with_verified_checksums": 108,
+  "pinned_upstream_source_files": 21,
+  "components": [
+    "GCC 16.2.0",
+    "binutils 2.47",
+    "GMP 6.2.1",
+    "MPFR 4.1.0",
+    "MPC 1.2.1",
+    "Arduino ctags 5.8-arduino11",
+    "Ubuntu GCC 11.4 / GCC 10.3 source packages and patches",
+    "MinGW-w64 8.0 source package and patches",
+    "zlib MinGW source package and patches"
+  ],
+  "excluded": [
+    "application sources",
+    "vendor C runtime binaries",
+    "VM disk and host caches",
+    "credentials and local git metadata"
+  ],
+  "note": "Checks describe source-distribution content; archive checksum changes when validation metadata is refreshed."
+}

@@ -19,18 +19,21 @@
       "arduino_cli_build": true
     },
     "linux-x86_64": {
-      "status": "compiler checks passed; firmware validation resuming after host reboot",
+      "status": "passed",
       "compiler_checks": true,
       "dependency_audit": true,
-      "firmware_identical": 5,
+      "firmware_identical": 25,
       "firmware_total": 25,
-      "environment": "Ubuntu 22.04 amd64 under Linux Rosetta; native ARM64 VZ VM"
+      "environment": "Ubuntu 22.04 amd64 under Linux Rosetta; native ARM64 VZ VM",
+      "extracted_install_checks": true,
+      "ctags_without_TMPDIR": true
     },
     "windows-x86_64": {
-      "status": "build resumed after host reboot; executable validation pending",
-      "compiler_checks": false,
-      "dependency_audit": false,
-      "environment_planned": "Wine 6.0.3; native Windows and Arduino IDE not tested"
+      "status": "compiler checks passed under Wine; native Windows validation pending",
+      "compiler_checks": true,
+      "dependency_audit": true,
+      "environment_planned": "Wine 6.0.3; native Windows and Arduino IDE not tested",
+      "environment": "Wine 6.0.3 x64; Ubuntu 22.04 amd64 container under Linux Rosetta"
     }
   },
   "compiler_check_scope": {

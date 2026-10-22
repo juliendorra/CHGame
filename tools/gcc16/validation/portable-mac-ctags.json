@@ -1,0 +1,20 @@
+{
+  "macos-arm64": {
+    "passed": true,
+    "TMPDIR": "unset",
+    "runtime_fallback": "/tmp",
+    "functions": [
+      "setup",
+      "loop"
+    ]
+  },
+  "macos-x86_64": {
+    "passed": true,
+    "TMPDIR": "unset",
+    "runtime_fallback": "/tmp",
+    "functions": [
+      "setup",
+      "loop"
+    ]
+  }
+}

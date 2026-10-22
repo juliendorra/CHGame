@@ -22,8 +22,8 @@ the toolchain improvement from app source changes.
 |---|---|
 | macOS ARM64 | Compiler checks, 25 firmware comparisons, extracted install/restore checks, physical CHGame probe |
 | macOS x86-64 | Same compiler and firmware checks under Rosetta 2, extracted install checks and actual Arduino CLI build |
-| Linux x86-64 | Compiler checks and dependency audit passed; firmware comparisons in progress |
-| Windows x86-64 | MinGW cross build in progress; runtime checks pending |
+| Linux x86-64 | Compiler/dependency checks, 25 firmware comparisons, extracted install and ctags checks passed |
+| Windows x86-64 | MinGW build, compiler checks under Wine and PE dependency audit passed; native Windows validation pending |
 
 The 25 firmware cases include all 23 upstream examples plus two local Ball
 configurations. The Ball application is outside this contribution.

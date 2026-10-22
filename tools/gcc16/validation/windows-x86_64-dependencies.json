@@ -1,0 +1,572 @@
+{
+  "host": "windows-x86_64",
+  "files": {
+    "bin/ctags.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-addr2line.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-ar.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-as.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-c++.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-elf-c++filt.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-cpp.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-elf-elfedit.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-g++.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-elf-gcc-16.2.0.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-elf-gcc-ar.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-gcc-nm.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-gcc-ranlib.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-gcc.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-elf-gcov-dump.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-elf-gcov-tool.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-elf-gcov.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-elf-gprof.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-ld.bfd.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-ld.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-lto-dump.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-elf-nm.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-objcopy.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-objdump.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-ranlib.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-readelf.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-size.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-strings.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-elf-strip.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-addr2line.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-ar.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-as.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-c++.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-embed-c++filt.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-cpp.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-embed-elfedit.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-g++.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-embed-gcc-16.2.0.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-embed-gcc-ar.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-gcc-nm.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-gcc-ranlib.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-gcc.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-embed-gcov-dump.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-embed-gcov-tool.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-embed-gcov.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-embed-gprof.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-ld.bfd.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-ld.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-lto-dump.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "bin/riscv-none-embed-nm.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-objcopy.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-objdump.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-ranlib.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-readelf.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-size.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-strings.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "bin/riscv-none-embed-strip.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "lib/bfd-plugins/liblto_plugin.dll": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/cc1.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/cc1plus.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/collect2.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/install-tools/fixincl.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/liblto_plugin.dll": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/lto-wrapper.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/lto1.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll",
+        "WS2_32.dll"
+      ]
+    },
+    "riscv-none-elf/bin/ar.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "riscv-none-elf/bin/as.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "riscv-none-elf/bin/ld.bfd.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "riscv-none-elf/bin/ld.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "riscv-none-elf/bin/nm.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "riscv-none-elf/bin/objcopy.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "riscv-none-elf/bin/objdump.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "riscv-none-elf/bin/ranlib.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "riscv-none-elf/bin/readelf.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "riscv-none-elf/bin/strip.exe": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    }
+  },
+  "external_dependencies": [
+    "ADVAPI32.dll",
+    "KERNEL32.dll",
+    "WS2_32.dll",
+    "msvcrt.dll"
+  ],
+  "versioned_symbols": []
+}

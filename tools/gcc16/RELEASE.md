@@ -41,6 +41,13 @@ registers, and `mret` are retained. This does not establish equivalence for ever
 WCH processor or every proprietary extension. Ordinary C++17 container linking
 is tested; C++23 library modules remain unvalidated with the legacy C runtime.
 
+## Measured benefit
+
+On unchanged upstream CHSDtoUSB source, the GCC 16.2 toolchain produced median
+read/write improvements of **5.39% / 7.12%** and **4.75% smaller firmware** on
+one tested Mac/card. [Raw samples and controls](BENCHMARKS.md) document the
+conditions and separate toolchain effects from application source changes.
+
 ## Install
 
 1. Install the official CHGame **0.3.0** board package in Arduino IDE or CLI.
@@ -114,7 +121,10 @@ the Windows package's runtime, rather than assuming the Mac archive is identical
 This is a Canadian cross build: build OS Linux, compiler host Windows, generated
 code RISC-V. The matching RISC-V headers/libraries can be reused across hosts;
 they contain RISC-V code. Each host's compiler executables and LTO plugin are
-built separately. `--stage` supports resumable preparation/binutils/GCC/ctags
+built separately. Specs generation also needs a Linux-hosted GCC 16.2 for the
+same target. This is found in the `--target-runtime` prefix by default; if target
+libraries come from a different host, supply `--build-target-compiler` explicitly.
+`--stage` supports resumable preparation/binutils/GCC/ctags
 steps. Do not reuse a configured build directory for a different host or flags.
 
 ## Validate and package
@@ -134,6 +144,14 @@ both a plain-ar LTO archive and a C++17 container program. Firmware execution
 requires hardware; this script does not upload anything. Linux can additionally
 exercise Windows executables under Wine with `--runner wine --exe-suffix .exe`;
 that does not replace native Windows integration testing.
+
+For native Windows validation with Python and Arduino CLI installed, run
+`tools/test_windows_package.ps1` in PowerShell, passing `-Archive`,
+`-ExpectedSha256`, `-Repo` (a CHGame checkout) and `-Work` (an empty test folder).
+It uses isolated Arduino directories, checks compiler/ctags/installation,
+builds all 23 upstream examples and compiles the hardware probe. It does not
+upload to a board. JSON reports and tool hashes go in the work folder's
+`validation` directory.
 
 For a hardware check, open `fixtures/PortProbe/PortProbe.ino` with the matching
 CHGame libraries, select the CHGame USB Serial option, and upload it. At 115200
