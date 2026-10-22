@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "method": "Verify every archive sidecar, every regular-file hash in SHA256SUMS.json, archive root paths and external vendor C runtime boundary",
+  "archives": [
+    {
+      "archive": "chgame-gcc-16.2.0-chgame.1-linux-x86_64.tar.gz",
+      "sha256": "e94e66f2e95fd6d3b9604f33e8deec61b8759ed9cb9cca4fafa4aa2f552d8fd3",
+      "bytes": 132393913,
+      "verified_files": 1694
+    },
+    {
+      "archive": "chgame-gcc-16.2.0-chgame.1-macos-arm64.tar.gz",
+      "sha256": "f5446ea749d217f98f7e1896773fb994217ca6b21d43db54b70882e6e31da071",
+      "bytes": 110708400,
+      "verified_files": 1698
+    },
+    {
+      "archive": "chgame-gcc-16.2.0-chgame.1-macos-x86_64.tar.gz",
+      "sha256": "c4199a743bcd284f15f11f935c029d587dae329e7adada554beb05ecd12c8ebf",
+      "bytes": 114013927,
+      "verified_files": 1695
+    },
+    {
+      "archive": "chgame-gcc-16.2.0-chgame.1-patch-kit.tar.gz",
+      "sha256": "ab6bbdbff3b61910384b1c257707e58991ba7ed38043656da7baee1a645d0ea8",
+      "bytes": 307558,
+      "verified_files": 110
+    },
+    {
+      "archive": "chgame-gcc-16.2.0-chgame.1-sources.tar.gz",
+      "sha256": "175e51a09607c9062fc9cc89abe7720c1d0ab85135c574c76436f2f9915ca053",
+      "bytes": 323797533,
+      "verified_files": 131
+    },
+    {
+      "archive": "chgame-gcc-16.2.0-chgame.1-windows-x86_64.zip",
+      "sha256": "fdbb11abb824c8cfa8c3eca5c4834068e36d30ada367f41ccf968ec4426f596a",
+      "bytes": 172622138,
+      "verified_files": 1724
+    }
+  ]
+}
