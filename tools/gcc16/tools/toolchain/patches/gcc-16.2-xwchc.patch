@@ -1,0 +1,58 @@
+diff --git a/gcc/config/riscv/riscv-ext.def b/gcc/config/riscv/riscv-ext.def
+--- a/gcc/config/riscv/riscv-ext.def
++++ b/gcc/config/riscv/riscv-ext.def
+@@ -2089,3 +2089,17 @@
+ #include "riscv-ext-mips.def"
+ #include "riscv-ext-andes.def"
+ #include "riscv-ext-spacemit.def"
++
++/* WCH QingKe byte and halfword compressed memory instructions.  */
++DEFINE_RISCV_EXT(
++  /* NAME */ xwchc,
++  /* UPPERCASE_NAME */ XWCHC,
++  /* FULL_NAME */ "WCH QingKe additional compressed memory instructions",
++  /* DESC */ "Eight compressed unsigned byte/halfword loads and stores.",
++  /* URL */ ,
++  /* DEP_EXTS */ ({"zca"}),
++  /* SUPPORTED_VERSIONS */ ({{1, 0}}),
++  /* FLAG_GROUP */ xwch,
++  /* BITMASK_GROUP_ID */ BITMASK_NOT_YET_ALLOCATED,
++  /* BITMASK_BIT_POSITION*/ BITMASK_NOT_YET_ALLOCATED,
++  /* EXTRA_EXTENSION_FLAGS */ 0)
+diff --git a/gcc/config/riscv/riscv-ext.opt b/gcc/config/riscv/riscv-ext.opt
+--- a/gcc/config/riscv/riscv-ext.opt
++++ b/gcc/config/riscv/riscv-ext.opt
+@@ -65,6 +65,9 @@
+ int riscv_xventana_subext
+ 
+ TargetVariable
++int riscv_xwch_subext
++
++TargetVariable
+ int riscv_za_subext
+ 
+ TargetVariable
+@@ -472,3 +475,5 @@
+ 
+ Mask(XSMTVDOT) Var(riscv_xsmt_subext)
+ 
++Mask(XWCHC) Var(riscv_xwch_subext)
++
+diff --git a/gcc/testsuite/gcc.target/riscv/xwchc-march.c b/gcc/testsuite/gcc.target/riscv/xwchc-march.c
+--- /dev/null
++++ b/gcc/testsuite/gcc.target/riscv/xwchc-march.c
+@@ -0,0 +1,14 @@
++/* { dg-do compile } */
++/* { dg-options "-march=rv32imac_zicsr_xwchc -mabi=ilp32 -Os" } */
++
++#if !defined (__riscv_xwchc) || __riscv_xwchc != 1000000
++#error Xwchc version macro missing
++#endif
++
++unsigned int byte_load (const unsigned char *p) { return *p; }
++unsigned int half_load (const unsigned short *p) { return *p; }
++void byte_store (unsigned char *p, unsigned char v) { *p = v; }
++void half_store (unsigned short *p, unsigned short v) { *p = v; }
++
++/* Compression is performed by GAS.  */
++/* { dg-final { scan-assembler "xwchc1p0" } } */

@@ -1,0 +1,98 @@
+{
+  "purpose": "Sources for static Linux and Windows host runtime dependencies, including exact Ubuntu patches and build packaging",
+  "compiler": "Ubuntu gcc-mingw-w64 10.3.0-14ubuntu1+24.3 (win32 threads)",
+  "built_using": "gcc-10 (= 10.3.0-14ubuntu1)",
+  "packages": [
+    {
+      "file": "gcc-mingw-w64_24.3.dsc",
+      "url": "https://archive.ubuntu.com/ubuntu/pool/universe/g/gcc-mingw-w64/gcc-mingw-w64_24.3.dsc",
+      "sha256": "8636b07eddf17b5a870901bfdf6fa6c70ca35de4c0285bac7d70d9380a0ad1a2",
+      "bytes": 6777
+    },
+    {
+      "file": "gcc-mingw-w64_24.3.tar.xz",
+      "url": "https://archive.ubuntu.com/ubuntu/pool/universe/g/gcc-mingw-w64/gcc-mingw-w64_24.3.tar.xz",
+      "sha256": "fedd36a7a285f2a396ae5e001664c3188b91b45d704d5505914e8a11f05f2909",
+      "bytes": 34680
+    },
+    {
+      "file": "mingw-w64_8.0.0-1.dsc",
+      "url": "https://archive.ubuntu.com/ubuntu/pool/universe/m/mingw-w64/mingw-w64_8.0.0-1.dsc",
+      "sha256": "53fdbf8992860e2bbf05294afb93fa039ab78d777255883c037ad7bc1bd2ec07",
+      "bytes": 2537
+    },
+    {
+      "file": "mingw-w64_8.0.0.orig.tar.bz2",
+      "url": "https://archive.ubuntu.com/ubuntu/pool/universe/m/mingw-w64/mingw-w64_8.0.0.orig.tar.bz2",
+      "sha256": "44c740ea6ab3924bc3aa169bad11ad3c5766c5c8459e3126d44eabb8735a5762",
+      "bytes": 9370799
+    },
+    {
+      "file": "mingw-w64_8.0.0.orig.tar.bz2.asc",
+      "url": "https://archive.ubuntu.com/ubuntu/pool/universe/m/mingw-w64/mingw-w64_8.0.0.orig.tar.bz2.asc",
+      "sha256": "c69b30b8db9873b7199b13f6911c99236d9f0ad0109a595ddc4b3435c33c7ce9",
+      "bytes": 269
+    },
+    {
+      "file": "mingw-w64_8.0.0-1.debian.tar.xz",
+      "url": "https://archive.ubuntu.com/ubuntu/pool/universe/m/mingw-w64/mingw-w64_8.0.0-1.debian.tar.xz",
+      "sha256": "de7721bea066ba632aedaf9a3cac785cfb35581a550913cdd5869ea9770ce514",
+      "bytes": 107216
+    },
+    {
+      "file": "libz-mingw-w64_1.2.11+dfsg-4.dsc",
+      "url": "https://archive.ubuntu.com/ubuntu/pool/universe/libz/libz-mingw-w64/libz-mingw-w64_1.2.11+dfsg-4.dsc",
+      "sha256": "feb830a34a2c33494ca2ffb02342564515402c068e2207a081bf6b69ce1250e4",
+      "bytes": 2037
+    },
+    {
+      "file": "libz-mingw-w64_1.2.11+dfsg.orig.tar.xz",
+      "url": "https://archive.ubuntu.com/ubuntu/pool/universe/libz/libz-mingw-w64/libz-mingw-w64_1.2.11+dfsg.orig.tar.xz",
+      "sha256": "9d0404bc07629383dd71cb0b50749d7dcd156d28476f8a197bfb0f50005e4177",
+      "bytes": 349668
+    },
+    {
+      "file": "libz-mingw-w64_1.2.11+dfsg-4.debian.tar.xz",
+      "url": "https://archive.ubuntu.com/ubuntu/pool/universe/libz/libz-mingw-w64/libz-mingw-w64_1.2.11+dfsg-4.debian.tar.xz",
+      "sha256": "5a198da38c4575e97974ecb182fe8695ed0cb48884a214ad9f9235b8f4a832d3",
+      "bytes": 5424
+    },
+    {
+      "file": "gcc-10_10.3.0-14ubuntu1.dsc",
+      "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/gcc-10/10.3.0-14ubuntu1/gcc-10_10.3.0-14ubuntu1.dsc",
+      "sha256": "866369247a2768d5ec646834633ca82814e815296cfc8aa6700a12d076b2de02",
+      "bytes": 22277
+    },
+    {
+      "file": "gcc-10_10.3.0.orig.tar.gz",
+      "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/gcc-10/10.3.0-14ubuntu1/gcc-10_10.3.0.orig.tar.gz",
+      "sha256": "37425cd199173b633f155002fe16375782935942a91d4adefd1cd35ce9e44e9c",
+      "bytes": 83679201
+    },
+    {
+      "file": "gcc-10_10.3.0-14ubuntu1.debian.tar.xz",
+      "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/gcc-10/10.3.0-14ubuntu1/gcc-10_10.3.0-14ubuntu1.debian.tar.xz",
+      "sha256": "77765f9816579b98eade36a1f8912e966095b48779aa40dbd4ff081453086744",
+      "bytes": 844836
+    },
+    {
+      "file": "gcc-11_11.4.0-1ubuntu1~22.04.3.dsc",
+      "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/gcc-11/11.4.0-1ubuntu1~22.04.3/gcc-11_11.4.0-1ubuntu1~22.04.3.dsc",
+      "sha256": "5b42ce66a7ec64f94a73ff07c79a2db387e7104b7eb07113f15d2cb49b681917",
+      "bytes": 22819
+    },
+    {
+      "file": "gcc-11_11.4.0.orig.tar.gz",
+      "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/gcc-11/11.4.0-1ubuntu1~22.04.3/gcc-11_11.4.0.orig.tar.gz",
+      "sha256": "b05e5fb310748c2836a60fccbfdf0f924f4dcaecb78d3b6f177e0d9270a0b8f8",
+      "bytes": 86949353
+    },
+    {
+      "file": "gcc-11_11.4.0-1ubuntu1~22.04.3.debian.tar.xz",
+      "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/gcc-11/11.4.0-1ubuntu1~22.04.3/gcc-11_11.4.0-1ubuntu1~22.04.3.debian.tar.xz",
+      "sha256": "c56b15ffe85a584e88adca971c94fb68ef7bde016258cac942a81b4c74e4a6a3",
+      "bytes": 554748
+    }
+  ],
+  "linux_compiler": "Ubuntu GCC/G++ 11.4.0-1ubuntu1~22.04.3; static libstdc++ and libgcc"
+}

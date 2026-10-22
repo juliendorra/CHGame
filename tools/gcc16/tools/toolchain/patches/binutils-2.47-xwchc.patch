@@ -1,0 +1,710 @@
+diff --git a/bfd/elfxx-riscv.c b/bfd/elfxx-riscv.c
+--- a/bfd/elfxx-riscv.c
++++ b/bfd/elfxx-riscv.c
+@@ -1671,6 +1671,7 @@
+   {"xmipscmov",		ISA_SPEC_CLASS_DRAFT,	1, 0, 0 },
+   {"xmipsexectl",	ISA_SPEC_CLASS_DRAFT,	1, 0, 0 },
+   {"xmipslsp",		ISA_SPEC_CLASS_DRAFT,	1, 0, 0 },
++  {"xwchc",		ISA_SPEC_CLASS_DRAFT,	1, 0, 0 },
+   {"xsmtvdot",		ISA_SPEC_CLASS_DRAFT,	1, 0, 0 },
+   {"xsmtvdotii",	ISA_SPEC_CLASS_DRAFT,	1, 0, 0 },
+   {NULL, 0, 0, 0, 0}
+@@ -2320,6 +2321,12 @@
+ 			  xlen);
+       no_conflict = false;
+     }
++  if (riscv_subset_supports (rps, "xwchc")
++      && (riscv_subset_supports (rps, "d") || riscv_subset_supports (rps, "zcb")))
++    {
++      rps->error_handler (_("xwchc' is conflict with the `d/zcb' extension"));
++      no_conflict = false;
++    }
+ 
+   bool support_zve = false;
+   bool support_zvl = false;
+@@ -2823,7 +2830,7 @@
+ {
+   return riscv_update_subset1 (rps, rps->subset_list->head,
+ 			       "-c,-zca,-zcd,-zcf,-zcb,-zce,-zcmp,-zcmt,"
+-			       "-zcmop,-zclsd");
++			       "-zcmop,-zclsd,-xwchc");
+ }
+ 
+ /* Check if the FEATURE subset is supported or not in the subset list.
+@@ -3134,6 +3141,8 @@
+       return riscv_subset_supports (rps, "xmipsexectl");
+     case INSN_CLASS_XMIPSLSP:
+       return riscv_subset_supports (rps, "xmipslsp");
++    case INSN_CLASS_XWCHC:
++      return riscv_subset_supports (rps, "xwchc");
+     case INSN_CLASS_XSMTVDOT:
+       return riscv_subset_supports (rps, "xsmtvdot");
+     case INSN_CLASS_XSMTVDOTII:
+@@ -3476,6 +3485,8 @@
+       return "xsmtvdotii";
+     case INSN_CLASS_XSMTVDOT_OR_XSMTVDOTII:
+       return _("xsmtvdot' or `xsmtvdotii");
++    case INSN_CLASS_XWCHC:
++      return "xwchc";
+     default:
+       rps->error_handler
+         (_("internal: unreachable INSN_CLASS_*"));
+diff --git a/gas/NEWS b/gas/NEWS
+--- a/gas/NEWS
++++ b/gas/NEWS
+@@ -33,6 +33,9 @@
+ Changes in 2.46:
+ 
+ * Add support for AMD Zen6 processor.
++
++* Add support for RISC-V vendor extension:
++  QinHeng (WCH): Xwchc v1.0.
+ 
+ * Emit an SFrame FRE with zero offsets to convey an undefined return address
+   in the SFrame stack trace format.
+@@ -186,7 +189,7 @@
+ 
+ * Add a .base64 directive to the assembler which allows base64 encoded
+   binary data to be provided as strings.
+-  
++
+ * Add support for 'armv9.5-a' for -march in AArch64 GAS.
+ 
+ * In x86 Intel syntax undue mnemonic suffixes are now warned about.  This is
+@@ -196,7 +199,7 @@
+   the syntax \+ to access the number of times a given macro has been executed.
+   This is similar to the already existing \@ syntax, except that the count is
+   maintained on a per-macro basis.
+-  
++
+ * Support the NF feature in Intel APX.
+ 
+ * Remove KEYLOCKER and SHA promotions from EVEX MAP4.
+diff --git a/gas/config/tc-riscv.c b/gas/config/tc-riscv.c
+--- a/gas/config/tc-riscv.c
++++ b/gas/config/tc-riscv.c
+@@ -381,7 +381,8 @@
+   riscv_arch_str (xlen, riscv_rps_as.subset_list, true/* update */);
+   file_arch_str = xstrdup (riscv_rps_as.subset_list->arch_str);
+ 
+-  riscv_set_rvc (riscv_subset_supports (&riscv_rps_as, "zca"));
++  riscv_set_rvc (riscv_subset_supports (&riscv_rps_as, "zca")
++                 || riscv_subset_supports (&riscv_rps_as, "xwchc"));
+ 
+   if (riscv_subset_supports (&riscv_rps_as, "ztso"))
+     riscv_set_tso ();
+@@ -1696,6 +1697,17 @@
+ 	case 'X': /* Vendor-specific operands.  */
+ 	  switch (*++oparg)
+ 	    {
++	    case 'w': /* Vendor-specific (Qinheng QingKe Xwchc) operands. */
++	      switch(*++oparg)
++		{
++		  case 'b': used_bits |= ENCODE_XWCHC_UIMM5 (-1); break; /* Xwb */
++		  case '6': used_bits |= ENCODE_XWCHC_UIMM6_LSB0 (-1); break; /* Xw6 */
++		  case '4': used_bits |= ENCODE_XWCHC_UIMM4 (-1); break; /* Xw4 */
++		  case '5': used_bits |= ENCODE_XWCHC_UIMM5_LSB0 (-1); break; /* Xw5 */
++		  default:
++		    goto unknown_validate_operand;
++		}
++		break;
+ 	    case 't': /* Vendor-specific (T-head) operands.  */
+ 	      {
+ 		size_t n;
+@@ -4066,6 +4078,7 @@
+ 		    }
+ 		  break;
+ 
++
+ 		default:
+ 		  goto unknown_riscv_ip_operand;
+ 		}
+@@ -4074,6 +4087,54 @@
+ 	    case 'X': /* Vendor-specific operands.  */
+ 	      switch (*++oparg)
+ 		{
++		case 'w': /* Vendor-specific (Qinheng QingKe Xwchc) operands. */
++		  switch (*++oparg)
++		    {
++		    case 'b': /* Xwb: uimm5 0-31. */
++		      /* For qk.c.lbu and qk.c.sb. */
++		      if (riscv_handle_implicit_zero_offset (imm_expr, asarg))
++			continue;
++		      if (my_getSmallExpression (imm_expr, imm_reloc, asarg, p)
++			  || imm_expr->X_op != O_constant
++			  || !VALID_XWCHC_UIMM5 ((valueT) imm_expr->X_add_number))
++			  break;
++		      ip->insn_opcode |= ENCODE_XWCHC_UIMM5(imm_expr->X_add_number);
++		      goto rvc_imm_done;
++		    case '6': /* Xw6: uimm6_lsb0 0-62. Must be multiple of 2. */
++		      /* For qk.c.lhu and qk.c.sh. */
++		      if (riscv_handle_implicit_zero_offset (imm_expr, asarg))
++			continue;
++		      if (my_getSmallExpression (imm_expr, imm_reloc, asarg, p)
++			  || imm_expr->X_op != O_constant
++			  || !VALID_XWCHC_UIMM6_LSB0 ((valueT) imm_expr->X_add_number))
++			  break;
++		      ip->insn_opcode |= ENCODE_XWCHC_UIMM6_LSB0(imm_expr->X_add_number);
++		      goto rvc_imm_done;
++		    case '4': /* Xw4: uimm4 0-15. */
++		      /* For qk.c.lbusp and qk.c.sbsp. */
++		      if (riscv_handle_implicit_zero_offset (imm_expr, asarg))
++			continue;
++		      if (my_getSmallExpression (imm_expr, imm_reloc, asarg, p)
++			  || imm_expr->X_op != O_constant
++			  || !VALID_XWCHC_UIMM4 ((valueT) imm_expr->X_add_number))
++			  break;
++		      ip->insn_opcode |= ENCODE_XWCHC_UIMM4(imm_expr->X_add_number);
++		      goto rvc_imm_done;
++		    case '5': /* Xw5: uimm5_lsb0 0-30. Must be multiple of 2. */
++		      /* For qk.c.lhusp and qk.c.shsp. */
++		      if (riscv_handle_implicit_zero_offset (imm_expr, asarg))
++			continue;
++		      if (my_getSmallExpression (imm_expr, imm_reloc, asarg, p)
++			  || imm_expr->X_op != O_constant
++			  || !VALID_XWCHC_UIMM5_LSB0 ((valueT) imm_expr->X_add_number))
++			  break;
++		      ip->insn_opcode |= ENCODE_XWCHC_UIMM5_LSB0(imm_expr->X_add_number);
++		      goto rvc_imm_done;
++		    default:
++		      goto unknown_riscv_ip_operand;
++		    }
++		  break;
++
+ 		case 't': /* Vendor-specific (T-head) operands.  */
+ 		  {
+ 		    size_t n;
+@@ -5333,7 +5394,8 @@
+ 	{
+ 	  riscv_arch_str (xlen, riscv_rps_as.subset_list, true/* update */);
+ 
+-	  riscv_set_rvc (riscv_subset_supports (&riscv_rps_as, "zca"));
++	  riscv_set_rvc (riscv_subset_supports (&riscv_rps_as, "zca")
++                 || riscv_subset_supports (&riscv_rps_as, "xwchc"));
+ 
+ 	  if (riscv_subset_supports (&riscv_rps_as, "ztso"))
+ 	    riscv_set_tso ();
+diff --git a/gas/doc/c-riscv.texi b/gas/doc/c-riscv.texi
+--- a/gas/doc/c-riscv.texi
++++ b/gas/doc/c-riscv.texi
+@@ -917,6 +917,12 @@
+ 
+ It is documented in @url{https://mips.com/wp-content/uploads/2025/03/P8700-F_Programmers_Reference_Manual_Rev1.82_3-19-2025.pdf}.
+ 
++@item Xwchc
++
++The Xwchc extension provide additional compressed opcodes present in some QingKe cores from Nanjing Qinheng Microelectronics Co., Ltd. (WCH).
++
++It is documented in @url{http://web.archive.org/web/20251121133229/https://discourse.llvm.org/t/rfc-supporting-wch-qingke-xw-compressed-opcodes/79392/12}
++
+ @item XSmtVdot
+ The XSmtVdot extension provides instructions for vector dot.
+ 
+diff --git a/gas/testsuite/gas/riscv/march-help.l b/gas/testsuite/gas/riscv/march-help.l
+--- a/gas/testsuite/gas/riscv/march-help.l
++++ b/gas/testsuite/gas/riscv/march-help.l
+@@ -201,3 +201,4 @@
+ 	xmipslsp                                1.0
+ 	xsmtvdot                                1.0
+ 	xsmtvdotii                              1.0
++	xwchc                                  1.0
+diff --git a/gas/testsuite/gas/riscv/x-wchc-fail.d b/gas/testsuite/gas/riscv/x-wchc-fail.d
+--- /dev/null
++++ b/gas/testsuite/gas/riscv/x-wchc-fail.d
+@@ -0,0 +1,3 @@
++#as: -march=rv32ic_xwchc
++#source: x-wchc-fail.s
++#error_output: x-wchc-fail.l
+diff --git a/gas/testsuite/gas/riscv/x-wchc-fail.l b/gas/testsuite/gas/riscv/x-wchc-fail.l
+--- /dev/null
++++ b/gas/testsuite/gas/riscv/x-wchc-fail.l
+@@ -0,0 +1,33 @@
++.*: Assembler messages:
++.*: Error: unrecognized opcode `qk.c.lbu x8,0\(x8\)', extension `xwchc' required
++.*: Error: unrecognized opcode `qk.c.sb x8,0\(x8\)', extension `xwchc' required
++.*: Error: unrecognized opcode `qk.c.sb x8,-2\(x8\)', extension `xwchc' required
++.*: Error: unrecognized opcode `qk.c.sb x8,0\(x7\)', extension `xwchc' required
++.*: Error: illegal operands `qk.c.sb x7,0\(x8\)'
++.*: Error: illegal operands `qk.c.sb x7,-2\(x20\)'
++.*: Error: illegal operands `qk.c.lhu x8,1\(x8\)'
++.*: Error: illegal operands `qk.c.lhu x8,64\(x8\)'
++.*: Error: illegal operands `qk.c.sh x8,1\(x8\)'
++.*: Error: illegal operands `qk.c.sh x8,64\(x8\)'
++.*: Error: illegal operands `qk.c.sh x8,-1\(x8\)'
++.*: Error: illegal operands `qk.c.sh x8,-2\(x8\)'
++.*: Error: illegal operands `qk.c.sh x8,0\(x7\)'
++.*: Error: illegal operands `qk.c.sh x7,0\(x8\)'
++.*: Error: illegal operands `qk.c.sh x7,-2\(x20\)'
++.*: Error: illegal operands `qk.c.lbusp x8,0\(x8\)'
++.*: Error: illegal operands `qk.c.lbusp x8,32\(sp\)'
++.*: Error: illegal operands `qk.c.sbsp x8,0\(x8\)'
++.*: Error: illegal operands `qk.c.sbsp x8,32\(sp\)'
++.*: Error: illegal operands `qk.c.sbsp x8,-2\(sp\)'
++.*: Error: illegal operands `qk.c.sbsp x7,0\(sp\)'
++.*: Error: illegal operands `qk.c.sbsp x7,-2\(sp\)'
++.*: Error: illegal operands `qk.c.lhusp x8,0\(x8\)'
++.*: Error: illegal operands `qk.c.lhusp x8,1\(sp\)'
++.*: Error: illegal operands `qk.c.lhusp x8,32\(sp\)'
++.*: Error: illegal operands `qk.c.shsp x8,0\(x8\)'
++.*: Error: illegal operands `qk.c.shsp x8,1\(sp\)'
++.*: Error: illegal operands `qk.c.shsp x8,32\(sp\)'
++.*: Error: illegal operands `qk.c.shsp x8,-1\(sp\)'
++.*: Error: illegal operands `qk.c.shsp x8,-2\(sp\)'
++.*: Error: illegal operands `qk.c.shsp x7,0\(sp\)'
++.*: Error: illegal operands `qk.c.shsp x7,-2\(sp\)'
+diff --git a/gas/testsuite/gas/riscv/x-wchc-fail.s b/gas/testsuite/gas/riscv/x-wchc-fail.s
+--- /dev/null
++++ b/gas/testsuite/gas/riscv/x-wchc-fail.s
+@@ -0,0 +1,39 @@
++target:
++.option norvc
++	qk.c.lbu x8, 0(x8)
++	qk.c.sb x8, 0(x8)
++.option rvc
++	qk.c.sb x8, -2(x8)
++	qk.c.sb x8, 0(x7)
++.option arch,+xwchc
++	qk.c.sb x7, 0(x8)
++	qk.c.sb x7, -2(x20)
++
++	qk.c.lhu x8, 1(x8)
++	qk.c.lhu x8, 64(x8)
++	qk.c.sh x8, 1(x8)
++	qk.c.sh x8, 64(x8)
++	qk.c.sh x8, -1(x8)
++	qk.c.sh x8, -2(x8)
++	qk.c.sh x8, 0(x7)
++	qk.c.sh x7, 0(x8)
++	qk.c.sh x7, -2(x20)
++
++	qk.c.lbusp x8, 0(x8)
++	qk.c.lbusp x8, 32(sp)
++	qk.c.sbsp x8, 0(x8)
++	qk.c.sbsp x8, 32(sp)
++	qk.c.sbsp x8, -2(sp)
++	qk.c.sbsp x7, 0(sp)
++	qk.c.sbsp x7, -2(sp)
++
++	qk.c.lhusp x8, 0(x8)
++	qk.c.lhusp x8, 1(sp)
++	qk.c.lhusp x8, 32(sp)
++	qk.c.shsp x8, 0(x8)
++	qk.c.shsp x8, 1(sp)
++	qk.c.shsp x8, 32(sp)
++	qk.c.shsp x8, -1(sp)
++	qk.c.shsp x8, -2(sp)
++	qk.c.shsp x7, 0(sp)
++	qk.c.shsp x7, -2(sp)
+diff --git a/gas/testsuite/gas/riscv/x-wchc-norvc.d b/gas/testsuite/gas/riscv/x-wchc-norvc.d
+--- /dev/null
++++ b/gas/testsuite/gas/riscv/x-wchc-norvc.d
+@@ -0,0 +1,26 @@
++#as: -march=rv32ic_xwchc
++#source: x-wchc-norvc.s
++#objdump: -d -Mno-aliases
++
++.*:[ 	]+file format .*
++
++
++Disassembly of section .text:
++
++0+000 <target>:
++[ 	]+[0-9a-f]+:[ 	]+30c0[ 	]+qk.c.lbu[ 	]+s0,5\(s1\)
++[ 	]+[0-9a-f]+:[ 	]+3d60[ 	]+qk.c.lbu[ 	]+s0,31\(a0\)
++[ 	]+[0-9a-f]+:[ 	]+2000[ 	]+qk.c.lbu[ 	]+s0,0\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+3000[ 	]+qk.c.lbu[ 	]+s0,1\(s0\)
++
++[0-9a-f]+ <norvc>:
++[ 	]+[0-9a-f]+:[ 	]+0054c403[ 	]+lbu[ 	]+s0,5\(s1\)
++[ 	]+[0-9a-f]+:[ 	]+01f54403[ 	]+lbu[ 	]+s0,31\(a0\)
++
++[0-9a-f]+ <rvc>:
++[ 	]+[0-9a-f]+:[ 	]+0054c403[ 	]+lbu[ 	]+s0,5\(s1\)
++[ 	]+[0-9a-f]+:[ 	]+01f54403[ 	]+lbu[ 	]+s0,31\(a0\)
++
++[0-9a-f]+ <rvc_xwchc>:
++[ 	]+[0-9a-f]+:[ 	]+30c0[ 	]+qk.c.lbu[ 	]+s0,5\(s1\)
++[ 	]+[0-9a-f]+:[ 	]+3d60[ 	]+qk.c.lbu[ 	]+s0,31\(a0\)
+diff --git a/gas/testsuite/gas/riscv/x-wchc-norvc.s b/gas/testsuite/gas/riscv/x-wchc-norvc.s
+--- /dev/null
++++ b/gas/testsuite/gas/riscv/x-wchc-norvc.s
+@@ -0,0 +1,20 @@
++target:
++	lbu s0, 5(s1)
++	lbu s0, 31(a0)
++	qk.c.lbu s0, 0(s0)
++	qk.c.lbu s0, 1(s0)
++
++norvc:
++.option norvc
++	lbu s0, 5(s1)
++	lbu s0, 31(a0)
++
++rvc:
++.option rvc
++	lbu s0, 5(s1)
++	lbu s0, 31(a0)
++
++rvc_xwchc:
++.option arch,+xwchc
++	lbu s0, 5(s1)
++	lbu s0, 31(a0)
+diff --git a/gas/testsuite/gas/riscv/x-wchc.d b/gas/testsuite/gas/riscv/x-wchc.d
+--- /dev/null
++++ b/gas/testsuite/gas/riscv/x-wchc.d
+@@ -0,0 +1,81 @@
++#as: -march=rv32ic_xwchc
++#source: x-wchc.s
++#objdump: -d -Mno-aliases
++
++.*:[ 	]+file format .*
++
++
++Disassembly of section .text:
++
++0+000 <implicit_xwchc>:
++[ 	]+[0-9a-f]+:[ 	]+30c0[ 	]+qk.c.lbu[ 	]+s0,5\(s1\)
++[ 	]+[0-9a-f]+:[ 	]+3d60[ 	]+qk.c.lbu[ 	]+s0,31\(a0\)
++[ 	]+[0-9a-f]+:[ 	]+2100[ 	]+qk.c.lbu[ 	]+s0,0\(a0\)
++[ 	]+[0-9a-f]+:[ 	]+00094403[ 	]+lbu[ 	]+s0,0\(s2\)
++[ 	]+[0-9a-f]+:[ 	]+02044403[ 	]+lbu[ 	]+s0,32\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+b0c0[ 	]+qk.c.sb[ 	]+s0,5\(s1\)
++[ 	]+[0-9a-f]+:[ 	]+bd60[ 	]+qk.c.sb[ 	]+s0,31\(a0\)
++[ 	]+[0-9a-f]+:[ 	]+a100[ 	]+qk.c.sb[ 	]+s0,0\(a0\)
++[ 	]+[0-9a-f]+:[ 	]+00890023[ 	]+sb[ 	]+s0,0\(s2\)
++[ 	]+[0-9a-f]+:[ 	]+02840023[ 	]+sb[ 	]+s0,32\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+24a2[ 	]+qk.c.lhu[ 	]+s0,10\(s1\)
++[ 	]+[0-9a-f]+:[ 	]+3d62[ 	]+qk.c.lhu[ 	]+s0,62\(a0\)
++[ 	]+[0-9a-f]+:[ 	]+2102[ 	]+qk.c.lhu[ 	]+s0,0\(a0\)
++[ 	]+[0-9a-f]+:[ 	]+00095403[ 	]+lhu[ 	]+s0,0\(s2\)
++[ 	]+[0-9a-f]+:[ 	]+00145403[ 	]+lhu[ 	]+s0,1\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+04045403[ 	]+lhu[ 	]+s0,64\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+a4a2[ 	]+qk.c.sh[ 	]+s0,10\(s1\)
++[ 	]+[0-9a-f]+:[ 	]+bd62[ 	]+qk.c.sh[ 	]+s0,62\(a0\)
++[ 	]+[0-9a-f]+:[ 	]+a102[ 	]+qk.c.sh[ 	]+s0,0\(a0\)
++[ 	]+[0-9a-f]+:[ 	]+00891023[ 	]+sh[ 	]+s0,0\(s2\)
++[ 	]+[0-9a-f]+:[ 	]+008410a3[ 	]+sh[ 	]+s0,1\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+04841023[ 	]+sh[ 	]+s0,64\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+8010[ 	]+qk.c.lbusp[ 	]+a2,0\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+8390[ 	]+qk.c.lbusp[ 	]+a2,7\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+8790[ 	]+qk.c.lbusp[ 	]+a2,15\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+00014903[ 	]+lbu[ 	]+s2,0\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+01014403[ 	]+lbu[ 	]+s0,16\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+8050[ 	]+qk.c.sbsp[ 	]+a2,0\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+83d0[ 	]+qk.c.sbsp[ 	]+a2,7\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+87d0[ 	]+qk.c.sbsp[ 	]+a2,15\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+01210023[ 	]+sb[ 	]+s2,0\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+00810823[ 	]+sb[ 	]+s0,16\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+8030[ 	]+qk.c.lhusp[ 	]+a2,0\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+8730[ 	]+qk.c.lhusp[ 	]+a2,14\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+87b0[ 	]+qk.c.lhusp[ 	]+a2,30\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+00015903[ 	]+lhu[ 	]+s2,0\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+00115903[ 	]+lhu[ 	]+s2,1\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+02015403[ 	]+lhu[ 	]+s0,32\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+8070[ 	]+qk.c.shsp[ 	]+a2,0\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+8770[ 	]+qk.c.shsp[ 	]+a2,14\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+87f0[ 	]+qk.c.shsp[ 	]+a2,30\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+01211023[ 	]+sh[ 	]+s2,0\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+012110a3[ 	]+sh[ 	]+s2,1\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+02811023[ 	]+sh[ 	]+s0,32\(sp\)
++
++[0-9a-f]+ <explicit_xwchc>:
++[ 	]+[0-9a-f]+:[ 	]+2000[ 	]+qk.c.lbu[ 	]+s0,0\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+2000[ 	]+qk.c.lbu[ 	]+s0,0\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+3000[ 	]+qk.c.lbu[ 	]+s0,1\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+2800[ 	]+qk.c.lbu[ 	]+s0,16\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+a000[ 	]+qk.c.sb[ 	]+s0,0\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+a000[ 	]+qk.c.sb[ 	]+s0,0\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+a800[ 	]+qk.c.sb[ 	]+s0,16\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+2002[ 	]+qk.c.lhu[ 	]+s0,0\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+2002[ 	]+qk.c.lhu[ 	]+s0,0\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+3002[ 	]+qk.c.lhu[ 	]+s0,32\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+a002[ 	]+qk.c.sh[ 	]+s0,0\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+a002[ 	]+qk.c.sh[ 	]+s0,0\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+b002[ 	]+qk.c.sh[ 	]+s0,32\(s0\)
++[ 	]+[0-9a-f]+:[ 	]+8000[ 	]+qk.c.lbusp[ 	]+s0,0\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+8000[ 	]+qk.c.lbusp[ 	]+s0,0\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+8400[ 	]+qk.c.lbusp[ 	]+s0,8\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+8040[ 	]+qk.c.sbsp[ 	]+s0,0\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+8040[ 	]+qk.c.sbsp[ 	]+s0,0\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+8440[ 	]+qk.c.sbsp[ 	]+s0,8\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+8020[ 	]+qk.c.lhusp[ 	]+s0,0\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+8020[ 	]+qk.c.lhusp[ 	]+s0,0\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+80a0[ 	]+qk.c.lhusp[ 	]+s0,16\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+8060[ 	]+qk.c.shsp[ 	]+s0,0\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+8060[ 	]+qk.c.shsp[ 	]+s0,0\(sp\)
++[ 	]+[0-9a-f]+:[ 	]+80e0[ 	]+qk.c.shsp[ 	]+s0,16\(sp\)
+diff --git a/gas/testsuite/gas/riscv/x-wchc.s b/gas/testsuite/gas/riscv/x-wchc.s
+--- /dev/null
++++ b/gas/testsuite/gas/riscv/x-wchc.s
+@@ -0,0 +1,86 @@
++implicit_xwchc:
++	lbu s0, 5(s1)
++	lbu s0, 31(a0)
++	lbu s0, (a0)
++	lbu s0, 0(s2)
++	lbu s0, 32(s0)
++
++	sb s0, 5(s1)
++	sb s0, 31(a0)
++	sb s0, (a0)
++	sb s0, 0(s2)
++	sb s0, 32(s0)
++
++	lhu s0, 10(s1)
++	lhu s0, 62(a0)
++	lhu s0, (a0)
++	lhu s0, 0(s2)
++	lhu s0, 1(s0)
++	lhu s0, 64(s0)
++
++	sh s0, 10(s1)
++	sh s0, 62(a0)
++	sh s0, (a0)
++	sh s0, 0(s2)
++	sh s0, 1(s0)
++	sh s0, 64(s0)
++
++	lbu a2, (sp)
++	lbu a2, 7(sp)
++	lbu a2, 15(sp)
++	lbu s2, 0(sp)
++	lbu s0, 16(sp)
++
++	sb a2, (sp)
++	sb a2, 7(sp)
++	sb a2, 15(sp)
++	sb s2, 0(sp)
++	sb s0, 16(sp)
++
++	lhu a2, (sp)
++	lhu a2, 14(sp)
++	lhu a2, 30(sp)
++	lhu s2, 0(sp)
++	lhu s2, 1(sp)
++	lhu s0, 32(sp)
++
++	sh a2, (sp)
++	sh a2, 14(sp)
++	sh a2, 30(sp)
++	sh s2, 0(sp)
++	sh s2, 1(sp)
++	sh s0, 32(sp)
++
++explicit_xwchc:
++	qk.c.lbu s0, (s0)
++	qk.c.lbu s0, 0(s0)
++	qk.c.lbu s0, 1(s0)
++	qk.c.lbu s0, 16(s0)
++
++	qk.c.sb s0, (s0)
++	qk.c.sb s0, 0(s0)
++	qk.c.sb s0, 16(s0)
++
++	qk.c.lhu s0, (s0)
++	qk.c.lhu s0, 0(s0)
++	qk.c.lhu s0, 32(s0)
++
++	qk.c.sh s0, (s0)
++	qk.c.sh s0, 0(s0)
++	qk.c.sh s0, 32(s0)
++
++	qk.c.lbusp s0, (sp)
++	qk.c.lbusp s0, 0(sp)
++	qk.c.lbusp s0, 8(sp)
++
++	qk.c.sbsp s0, (sp)
++	qk.c.sbsp s0, 0(sp)
++	qk.c.sbsp s0, 8(sp)
++
++	qk.c.lhusp s0, (sp)
++	qk.c.lhusp s0, 0(sp)
++	qk.c.lhusp s0, 16(sp)
++
++	qk.c.shsp s0, (sp)
++	qk.c.shsp s0, 0(sp)
++	qk.c.shsp s0, 16(sp)
+diff --git a/include/opcode/riscv-opc.h b/include/opcode/riscv-opc.h
+--- a/include/opcode/riscv-opc.h
++++ b/include/opcode/riscv-opc.h
+@@ -3860,6 +3860,24 @@
+ #define MASK_SF_VC_FVW 0xfa00707f
+ #define MATCH_SF_VC_V_FVW 0xf800505b
+ #define MASK_SF_VC_V_FVW 0xfa00707f
++/* Qinheng QingKe Xw instructions. */
++#define MATCH_XWCHC_LBU 0x2000
++#define MASK_XWCHC_LBU 0xe003
++#define MATCH_XWCHC_LHU 0x2002
++#define MASK_XWCHC_LHU 0xe003
++#define MATCH_XWCHC_SB 0xa000
++#define MASK_XWCHC_SB 0xe003
++#define MATCH_XWCHC_SH 0xa002
++#define MASK_XWCHC_SH 0xe003
++#define MATCH_XWCHC_LBUSP 0x8000
++#define MASK_XWCHC_LBUSP 0xf863
++#define MATCH_XWCHC_LHUSP 0x8020
++#define MASK_XWCHC_LHUSP 0xf863
++#define MATCH_XWCHC_SBSP 0x8040
++#define MASK_XWCHC_SBSP 0xf863
++#define MATCH_XWCHC_SHSP 0x8060
++#define MASK_XWCHC_SHSP 0xf863
++
+ /* Vendor-specific (SiFive) cease instruction.  */
+ #define MATCH_SF_CEASE 0x30500073
+ #define MASK_SF_CEASE 0xffffffff
+@@ -5174,6 +5192,15 @@
+ DECLARE_INSN(mips_ihb, MATCH_MIPS_IHB, MASK_MIPS_IHB)
+ DECLARE_INSN(mips_pause, MATCH_MIPS_PAUSE, MASK_MIPS_PAUSE)
+ DECLARE_INSN(mips_pref, MATCH_MIPS_PREF, MASK_MIPS_PREF)
++/* Vendor-specific (Qinheng QingKe Xw) instructions. */
++DECLARE_INSN(qk_c_lbu, MATCH_XWCHC_LBU, MASK_XWCHC_LBU)
++DECLARE_INSN(qk_c_lhu, MATCH_XWCHC_LHU, MASK_XWCHC_LHU)
++DECLARE_INSN(qk_c_sb, MATCH_XWCHC_SB, MASK_XWCHC_SB)
++DECLARE_INSN(qk_c_sh, MATCH_XWCHC_SH, MASK_XWCHC_SH)
++DECLARE_INSN(qk_c_lbusp, MATCH_XWCHC_LBUSP, MASK_XWCHC_LBUSP)
++DECLARE_INSN(qk_c_lhusp, MATCH_XWCHC_LHUSP, MASK_XWCHC_LHUSP)
++DECLARE_INSN(qk_c_sbsp, MATCH_XWCHC_SBSP, MASK_XWCHC_SBSP)
++DECLARE_INSN(qk_c_shsp, MATCH_XWCHC_SHSP, MASK_XWCHC_SHSP)
+ #endif /* DECLARE_INSN */
+ #ifdef DECLARE_CSR
+ /* Unprivileged Counter/Timers CSRs.  */
+diff --git a/include/opcode/riscv.h b/include/opcode/riscv.h
+--- a/include/opcode/riscv.h
++++ b/include/opcode/riscv.h
+@@ -145,6 +145,16 @@
+ #define ENCODE_SPACEMIT_IME_UIMM2_SP(x) \
+   ((RV_X (x, 0, 1) << 7) | (RV_X (x, 1, 1) << 15))
+ 
++/* Vendor-specific (Qinheng QingKe Xw) extract macros.  */
++#define EXTRACT_XWCHC_UIMM5(x) \
++  ((RV_X(x, 12, 1)) | (RV_X(x, 10, 2) << 3) | (RV_X(x, 5, 2) << 1))
++#define EXTRACT_XWCHC_UIMM6_LSB0(x) \
++  ((RV_X(x, 10, 3) << 3) | (RV_X(x, 5, 2) << 1))
++#define EXTRACT_XWCHC_UIMM4(x) \
++  (RV_X(x, 7, 4))
++#define EXTRACT_XWCHC_UIMM5_LSB0(x) \
++  ((RV_X(x, 8, 3) << 1) | (RV_X(x, 7, 1) << 4))
++
+ #define ENCODE_ITYPE_IMM(x) \
+   (RV_X(x, 0, 12) << 20)
+ #define ENCODE_STYPE_IMM(x) \
+@@ -221,6 +231,15 @@
+   ((RV_X(x, 5, 2) << 25) | (RV_X(x, 2, 3) << 9))
+ #define ENCODE_MIPS_SDP_IMM(x) \
+   ((RV_X(x, 5, 2) << 25) | (RV_X(x, 3, 2) << 10))
++/* Vendor-specific (Qinheng QingKe Xw) encode macros.  */
++#define ENCODE_XWCHC_UIMM5(x) \
++  ((RV_X(x, 0, 1) << 12) | (RV_X(x, 3, 2) << 10) | (RV_X(x, 1, 2) << 5))
++#define ENCODE_XWCHC_UIMM6_LSB0(x) \
++  ((RV_X(x, 5, 1) << 12) | (RV_X(x, 3, 2) << 10) | (RV_X(x, 1, 2) << 5))
++#define ENCODE_XWCHC_UIMM4(x) \
++  (RV_X(x, 0, 4) << 7)
++#define ENCODE_XWCHC_UIMM5_LSB0(x) \
++  ((RV_X(x, 1, 3) << 8) | (RV_X(x, 4, 1) << 7))
+ 
+ #define VALID_ITYPE_IMM(x) (EXTRACT_ITYPE_IMM(ENCODE_ITYPE_IMM(x)) == (x))
+ #define VALID_STYPE_IMM(x) (EXTRACT_STYPE_IMM(ENCODE_STYPE_IMM(x)) == (x))
+@@ -249,6 +268,11 @@
+ #define VALID_ZCB_BYTE_UIMM(x) (EXTRACT_ZCB_BYTE_UIMM(ENCODE_ZCB_BYTE_UIMM(x)) == (x))
+ #define VALID_ZCB_HALFWORD_UIMM(x) (EXTRACT_ZCB_HALFWORD_UIMM(ENCODE_ZCB_HALFWORD_UIMM(x)) == (x))
+ #define VALID_ZCMP_SPIMM(x) (EXTRACT_ZCMP_SPIMM(ENCODE_ZCMP_SPIMM(x)) == (x))
++/* Vendor-specific (Qinheng QingKe Xw) validation macros.  */
++#define VALID_XWCHC_UIMM5(x) (EXTRACT_XWCHC_UIMM5(ENCODE_XWCHC_UIMM5(x)) == (x))
++#define VALID_XWCHC_UIMM6_LSB0(x) (EXTRACT_XWCHC_UIMM6_LSB0(ENCODE_XWCHC_UIMM6_LSB0(x)) == (x))
++#define VALID_XWCHC_UIMM4(x) (EXTRACT_XWCHC_UIMM4(ENCODE_XWCHC_UIMM4(x)) == (x))
++#define VALID_XWCHC_UIMM5_LSB0(x) (EXTRACT_XWCHC_UIMM5_LSB0(ENCODE_XWCHC_UIMM5_LSB0(x)) == (x))
+ 
+ #define RISCV_RTYPE(insn, rd, rs1, rs2) \
+   ((MATCH_ ## insn) | ((rd) << OP_SH_RD) | ((rs1) << OP_SH_RS1) | ((rs2) << OP_SH_RS2))
+@@ -634,6 +658,7 @@
+   INSN_CLASS_XMIPSCMOV,
+   INSN_CLASS_XMIPSEXECTL,
+   INSN_CLASS_XMIPSLSP,
++  INSN_CLASS_XWCHC,
+   INSN_CLASS_XSMTVDOT,
+   INSN_CLASS_XSMTVDOTII,
+   INSN_CLASS_XSMTVDOT_OR_XSMTVDOTII,
+diff --git a/opcodes/riscv-dis.c b/opcodes/riscv-dis.c
+--- a/opcodes/riscv-dis.c
++++ b/opcodes/riscv-dis.c
+@@ -1022,6 +1022,29 @@
+ 		    else if (wi != 3)
+ 		      goto undefined_modifier;
+ 		  }
++		  break;
++		default:
++		  goto undefined_modifier;
++		}
++	      break;
++	    case 'w': /* Vendor-specific (Qinghen QingKe Xwchc) operands.  */
++	      switch (*++oparg)
++		{
++		case 'b':
++		  print (info->stream, dis_style_immediate, "%d",
++			 (unsigned)EXTRACT_XWCHC_UIMM5 (l));
++		  break;
++		case '6':
++		  print (info->stream, dis_style_immediate, "%d",
++			 (unsigned)EXTRACT_XWCHC_UIMM6_LSB0 (l));
++		  break;
++		case '4':
++		  print (info->stream, dis_style_immediate, "%d",
++			 (unsigned)EXTRACT_XWCHC_UIMM4 (l));
++		  break;
++		case '5':
++		  print (info->stream, dis_style_immediate, "%d",
++			 (unsigned)EXTRACT_XWCHC_UIMM5_LSB0 (l));
+ 		  break;
+ 		default:
+ 		  goto undefined_modifier;
+diff --git a/opcodes/riscv-opc.c b/opcodes/riscv-opc.c
+--- a/opcodes/riscv-opc.c
++++ b/opcodes/riscv-opc.c
+@@ -599,12 +599,16 @@
+ {"lb",          0, INSN_CLASS_I, "d,o(s)",    MATCH_LB, MASK_LB, match_opcode, INSN_DREF|INSN_1_BYTE },
+ {"lb",          0, INSN_CLASS_I, "d,A",       0, (int) M_Lx, match_rd_nonzero, INSN_MACRO },
+ {"lbu",         0, INSN_CLASS_ZCB, "Ct,Wcb(Cs)", MATCH_C_LBU, MASK_C_LBU, match_opcode, INSN_ALIAS|INSN_DREF|INSN_1_BYTE },
++{"lbu",        32, INSN_CLASS_XWCHC, "Ct,Xw4(Cc)", MATCH_XWCHC_LBUSP, MASK_XWCHC_LBUSP, match_opcode, INSN_ALIAS|INSN_DREF|INSN_1_BYTE },
++{"lbu",        32, INSN_CLASS_XWCHC, "Ct,Xwb(Cs)", MATCH_XWCHC_LBU, MASK_XWCHC_LBU, match_opcode, INSN_ALIAS|INSN_DREF|INSN_1_BYTE },
+ {"lbu",         0, INSN_CLASS_I, "d,o(s)",    MATCH_LBU, MASK_LBU, match_opcode, INSN_DREF|INSN_1_BYTE },
+ {"lbu",         0, INSN_CLASS_I, "d,A",       0, (int) M_Lx, match_rd_nonzero, INSN_MACRO },
+ {"lh",          0, INSN_CLASS_ZCB, "Ct,Wch(Cs)", MATCH_C_LH, MASK_C_LH, match_opcode, INSN_ALIAS|INSN_DREF|INSN_2_BYTE },
+ {"lh",          0, INSN_CLASS_I, "d,o(s)",    MATCH_LH, MASK_LH, match_opcode, INSN_DREF|INSN_2_BYTE },
+ {"lh",          0, INSN_CLASS_I, "d,A",       0, (int) M_Lx, match_rd_nonzero, INSN_MACRO },
+ {"lhu",         0, INSN_CLASS_ZCB, "Ct,Wch(Cs)", MATCH_C_LHU, MASK_C_LHU, match_opcode, INSN_ALIAS|INSN_DREF|INSN_2_BYTE },
++{"lhu",        32, INSN_CLASS_XWCHC, "Ct,Xw5(Cc)", MATCH_XWCHC_LHUSP, MASK_XWCHC_LHUSP, match_opcode, INSN_ALIAS|INSN_DREF|INSN_2_BYTE },
++{"lhu",        32, INSN_CLASS_XWCHC, "Ct,Xw6(Cs)", MATCH_XWCHC_LHU, MASK_XWCHC_LHU, match_opcode, INSN_ALIAS|INSN_DREF|INSN_2_BYTE },
+ {"lhu",         0, INSN_CLASS_I, "d,o(s)",    MATCH_LHU, MASK_LHU, match_opcode, INSN_DREF|INSN_2_BYTE },
+ {"lhu",         0, INSN_CLASS_I, "d,A",       0, (int) M_Lx, match_rd_nonzero, INSN_MACRO },
+ {"lw",          0, INSN_CLASS_ZCA, "d,Cm(Cc)",  MATCH_C_LWSP, MASK_C_LWSP, match_rd_nonzero, INSN_ALIAS|INSN_DREF|INSN_4_BYTE },
+@@ -636,9 +640,13 @@
+ {"sgt",         0, INSN_CLASS_I, "d,t,s",     MATCH_SLT, MASK_SLT, match_opcode, INSN_ALIAS },
+ {"sgtu",        0, INSN_CLASS_I, "d,t,s",     MATCH_SLTU, MASK_SLTU, match_opcode, INSN_ALIAS },
+ {"sb",          0, INSN_CLASS_ZCB, "Ct,Wcb(Cs)", MATCH_C_SB, MASK_C_SB, match_opcode, INSN_DREF|INSN_1_BYTE|INSN_ALIAS },
++{"sb",         32, INSN_CLASS_XWCHC, "Ct,Xw4(Cc)", MATCH_XWCHC_SBSP, MASK_XWCHC_SBSP, match_opcode, INSN_DREF|INSN_1_BYTE|INSN_ALIAS },
++{"sb",         32, INSN_CLASS_XWCHC, "Ct,Xwb(Cs)", MATCH_XWCHC_SB, MASK_XWCHC_SB, match_opcode, INSN_DREF|INSN_1_BYTE|INSN_ALIAS },
+ {"sb",          0, INSN_CLASS_I, "t,q(s)",    MATCH_SB, MASK_SB, match_opcode, INSN_DREF|INSN_1_BYTE },
+ {"sb",          0, INSN_CLASS_I, "t,A,s",     0, (int) M_Sx_FSx, match_rs1_nonzero, INSN_MACRO },
+ {"sh",          0, INSN_CLASS_ZCB, "Ct,Wch(Cs)", MATCH_C_SH, MASK_C_SH, match_opcode, INSN_DREF|INSN_2_BYTE|INSN_ALIAS },
++{"sh",         32, INSN_CLASS_XWCHC, "Ct,Xw5(Cc)", MATCH_XWCHC_SHSP, MASK_XWCHC_SHSP, match_opcode, INSN_DREF|INSN_2_BYTE|INSN_ALIAS },
++{"sh",         32, INSN_CLASS_XWCHC, "Ct,Xw6(Cs)", MATCH_XWCHC_SH, MASK_XWCHC_SH, match_opcode, INSN_DREF|INSN_2_BYTE|INSN_ALIAS },
+ {"sh",          0, INSN_CLASS_I, "t,q(s)",    MATCH_SH, MASK_SH, match_opcode, INSN_DREF|INSN_2_BYTE },
+ {"sh",          0, INSN_CLASS_I, "t,A,s",     0, (int) M_Sx_FSx, match_rs1_nonzero, INSN_MACRO },
+ {"sw",          0, INSN_CLASS_ZCA, "CV,CM(Cc)", MATCH_C_SWSP, MASK_C_SWSP, match_opcode, INSN_ALIAS|INSN_DREF|INSN_4_BYTE },
+@@ -3683,6 +3691,16 @@
+ {"smt.vpack.vv", 0, INSN_CLASS_XSMTVDOTII, "XpVd,Vs,Vt,Xpu2@12", MATCH_SMT_VPACK_VV, MASK_SMT_VPACK_VV, match_opcode, 0 },
+ {"smt.vupack.vv", 0, INSN_CLASS_XSMTVDOTII, "XpVd,Vs,Vt,Xpu2@12", MATCH_SMT_VUPACK_VV, MASK_SMT_VUPACK_VV, match_opcode, 0 },
+ 
++/* Qinghen QingKe Xw instructions. */
++{"qk.c.lbu",   32, INSN_CLASS_XWCHC, "Ct,Xwb(Cs)", MATCH_XWCHC_LBU,   MASK_XWCHC_LBU,   match_opcode, INSN_DREF|INSN_1_BYTE },
++{"qk.c.lhu",   32, INSN_CLASS_XWCHC, "Ct,Xw6(Cs)", MATCH_XWCHC_LHU,   MASK_XWCHC_LHU,   match_opcode, INSN_DREF|INSN_2_BYTE },
++{"qk.c.sb",    32, INSN_CLASS_XWCHC, "Ct,Xwb(Cs)", MATCH_XWCHC_SB,    MASK_XWCHC_SB,    match_opcode, INSN_DREF|INSN_1_BYTE },
++{"qk.c.sh",    32, INSN_CLASS_XWCHC, "Ct,Xw6(Cs)", MATCH_XWCHC_SH,    MASK_XWCHC_SH,    match_opcode, INSN_DREF|INSN_2_BYTE },
++{"qk.c.lbusp", 32, INSN_CLASS_XWCHC, "Ct,Xw4(Cc)", MATCH_XWCHC_LBUSP, MASK_XWCHC_LBUSP, match_opcode, INSN_DREF|INSN_1_BYTE },
++{"qk.c.lhusp", 32, INSN_CLASS_XWCHC, "Ct,Xw5(Cc)", MATCH_XWCHC_LHUSP, MASK_XWCHC_LHUSP, match_opcode, INSN_DREF|INSN_2_BYTE },
++{"qk.c.sbsp",  32, INSN_CLASS_XWCHC, "Ct,Xw4(Cc)", MATCH_XWCHC_SBSP,  MASK_XWCHC_SBSP,  match_opcode, INSN_DREF|INSN_1_BYTE },
++{"qk.c.shsp",  32, INSN_CLASS_XWCHC, "Ct,Xw5(Cc)", MATCH_XWCHC_SHSP,  MASK_XWCHC_SHSP,  match_opcode, INSN_DREF|INSN_2_BYTE },
++
+ /* Terminate the list.  */
+ {0, 0, INSN_CLASS_NONE, 0, 0, 0, 0, 0}
+ };

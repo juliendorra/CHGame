@@ -23,6 +23,12 @@ The shared tools know nothing about any one game. What a game has to say
 about itself is in its `tools/game.py` (below), its `tools/chsim/chdrive.py`
 (its own script commands) and its `tools/scripts/*.txt`.
 
+## Experimental compiler
+
+[The GCC 16.2 preview](gcc16/README.md) provides opt-in WCH-compatible compiler
+patches, portable build recipes, a reversible Arduino installer and validation
+fixtures. It leaves the official board package compiler selected by default.
+
 ## What is here
 
 | Tool | What it does |
