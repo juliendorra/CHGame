@@ -1,0 +1,23 @@
+Ctags 5.8-arduino11: honor native Windows temporary directories.
+Derived from routines.c; GPL-2.0-or-later, as in licenses/ctags/COPYING.
+
+--- a/routines.c
++++ b/routines.c
+@@ -858,8 +858,16 @@
+ 	const char *tmpdir = NULL;
+ 	fileStatus *file = eStat (ExecutableProgram);
+ 	if (! file->isSetuid)
++	{
+ 		tmpdir = getenv ("TMPDIR");
+-	if (tmpdir == NULL)
++#if defined (_WIN32)
++		if (tmpdir == NULL || tmpdir[0] == '\0')
++			tmpdir = getenv ("TEMP");
++		if (tmpdir == NULL || tmpdir[0] == '\0')
++			tmpdir = getenv ("TMP");
++#endif
++	}
++	if (tmpdir == NULL || tmpdir[0] == '\0')
+ 		tmpdir = TMPDIR;
+ 	name = xMalloc (strlen (tmpdir) + 1 + strlen (pattern) + 1, char);
+ 	sprintf (name, "%s%c%s", tmpdir, OUTPUT_PATH_SEPARATOR, pattern);

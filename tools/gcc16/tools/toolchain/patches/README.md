@@ -10,8 +10,8 @@ Apply in this order to the named pristine releases:
 2. `gcc-16.2-xwchc.patch` to GCC 16.2.0.
 3. `gcc-16.2-wch-fast-interrupt.patch` to GCC 16.2.0.
 
-The patches modify GNU software and are distributed under GPL version 3 or
-later, consistent with those projects. See [COPYING3](COPYING3). Original
+The three GCC/binutils patches modify GNU software and are distributed under
+GPL version 3 or later, consistent with those projects. See [COPYING3](COPYING3). Original
 copyrights and authorship remain applicable.
 
 ## Provenance
@@ -55,3 +55,12 @@ Source downloads were checked against official detached GNU signatures using
 the GNU keyring. GCC's signing key was
 `7F74F97C103468EE5D750B583AB00996FC26A641`; binutils' was
 `3A24BC1E8FB409FA9F14371813FCEF89DD9E3C4F`. Build recipes pin archive hashes.
+
+## Arduino helper portability
+
+`ctags-5.8-arduino11-tempdir.patch` applies to Arduino ctags 5.8-arduino11.
+It retains the original TMPDIR override and uses Windows TEMP/TMP when that
+override is absent. This derived ctags change is GPL-2.0-or-later, consistent
+with ctags' own COPYING notice in the release licenses/ctags directory. The
+build recipe also uses /tmp as the POSIX fallback and renames two reserved
+macro identifiers which conflict with current Apple SDK headers.

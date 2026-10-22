@@ -78,3 +78,17 @@ GCC's specs rule calls a build-host RISC-V GCC. Merely reusing target libraries
 did not supply that executable. The recipe now locates GCC 16.2 in the supplied
 Linux runtime prefix or requires an explicit `--build-target-compiler`, checks
 its version, and passes `GCC_FOR_TARGET` on every make invocation.
+
+Windows ctags configured HAVE_MKSTEMP too. Wine can resolve the POSIX /tmp
+fallback through its Z: mapping, so that test alone did not establish a valid
+native Windows default. The ctags portability patch reads TEMP/TMP on Windows
+when TMPDIR is absent. Native host validation explicitly removes TMPDIR.
+
+The first Windows firmware replay retained extra globals and overflowed Ball's
+RAM despite passing the initial link smoke test. Map comparison ruled out the
+first suspicion of different vendor libc overhead. GCC had configured
+HAVE_LTO_PLUGIN=0 because Linux could not probe Windows binutils. The corrected
+recipe supplies native build-time target tools with --with-build-time-tools.
+The regression test now requires default plugin activation, slim LTO linking
+without an explicit link-time -flto, and removal of an unused global. A successful
+LTO-enabled link alone had been too weak a check.

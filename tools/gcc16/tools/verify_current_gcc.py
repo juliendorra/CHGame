@@ -167,16 +167,24 @@ def verify_compiler():
     # Match Arduino's plain-ar archive path, not just direct object linking.
     library_source = OUT / "lto-library.c"
     main_source = OUT / "lto-main.c"
-    library_source.write_text('int exported(int x) { return x + 7; }\n')
+    library_source.write_text('unsigned char unused_lto_state[4096];\nint exported(int x) { return x + 7; }\n')
     main_source.write_text('extern int exported(int); volatile int result;\n'
                            'void _start(void) { result=exported(5); for (;;) __asm__ volatile (""); }\n')
-    flags = ["-march=" + ARCH, "-mabi=ilp32", "-Os", "-flto"]
+    flags = ["-march=" + ARCH, "-mabi=ilp32", "-Os", "-flto", "-fno-fat-lto-objects"]
     for src in (library_source, main_source):
         run([cc, *flags, "-c", src, "-o", src.with_suffix(".o")])
     archive = OUT / "lto-library.a"
     run([PREFIX / "bin" / (TARGET + "-ar"), "rcs", archive, library_source.with_suffix(".o")])
-    run([cc, *flags, "-nostdlib", "-Wl,-e,_start", main_source.with_suffix(".o"),
-         archive, "-o", OUT / "lto-archive.elf"])
+    link = [cc, *flags[:3], "-nostdlib", "-Wl,-e,_start", main_source.with_suffix(".o"),
+            archive, "-o", OUT / "lto-archive.elf"]
+    trace = run([*link, "-###"])
+    (OUT / "lto-link-command.txt").write_text(trace)
+    if "liblto_plugin" not in trace or not re.search(r'[\s"]-plugin[\s"]', trace):
+        raise RuntimeError("Linker-plugin LTO is not enabled by default")
+    run(link)
+    symbols = run([PREFIX / "bin" / (TARGET + "-nm"), OUT / "lto-archive.elf"])
+    if "unused_lto_state" in symbols:
+        raise RuntimeError("LTO did not remove the unused global")
     cpp = OUT / "cpp17.cpp"
     cpp.write_text('#include <array>\n#include <vector>\n#include <algorithm>\n'
                    'constexpr std::array<int,3> values={3,1,2};\n'
@@ -187,7 +195,8 @@ def verify_compiler():
          "-std=c++17", "-fno-exceptions", "-fno-rtti", "--specs=nano.specs",
          "--specs=nosys.specs", "-nostartfiles", "-Wl,-e,main", cpp, "-o", OUT / "cpp17.elf"])
     return dict(interrupt_fixtures=results, c_memory_forms_compressed=4,
-                lto_archive_link=True, cpp17_container_link=True)
+                lto_archive_link=True, lto_plugin_default=True, slim_lto_without_link_flag=True,
+                unused_lto_global_removed=True, cpp17_container_link=True)
 
 
 def main():

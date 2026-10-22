@@ -90,6 +90,9 @@ def main():
             ap.error(f"Cannot execute build-host target compiler: {error}")
         if version != "16.2.0":
             ap.error("Build-host target compiler must be GCC 16.2.0")
+        build_tools = build_target.parent.parent / base.TARGET / "bin"
+        if not all((build_tools / name).is_file() for name in ("as", "ld", "ar", "nm", "ranlib", "strip")):
+            ap.error("Build-host target compiler prefix must include matching native target binutils")
     base.WORK = (args.work or base.ROOT / ".toolchains/release" / args.host).resolve()
     base.PREFIX = base.WORK / "prefix"
     if args.sources:
@@ -133,6 +136,16 @@ def main():
                    LDFLAGS="-static", CXXFLAGS="-O1 -g0 -static-libgcc -static-libstdc++")
     else:
         env.update(CC="gcc", CXX="g++")
+    if build_target:
+        env.update({name + "_FOR_TARGET": str(build_tools / name.lower())
+                    for name in ("AS", "LD", "AR", "NM", "RANLIB", "STRIP", "OBJDUMP")})
+        # A previous Canadian-cross configuration may have probed Windows PE
+        # tools on Linux and silently disabled assembler/linker features.
+        config = base.WORK / "build/gcc/gcc/auto-host.h"
+        top = base.WORK / "build/gcc"
+        if config.exists() and "#define HAVE_LTO_PLUGIN 2" not in config.read_text():
+            for rel in ("Makefile", "config.cache", "gcc/Makefile", "gcc/config.cache"):
+                (top / rel).unlink(missing_ok=True)
     original_command = base.command
 
     def command(arguments, cwd, log, environment):
@@ -141,6 +154,8 @@ def main():
                      .replace("CHGame native arm64 GCC 16.2", "CHGame GCC 16.2") for a in arguments]
         if arguments[0].endswith("/configure"):
             arguments.append("--without-zstd")
+            if build_target and Path(arguments[0]).parent.name == "gcc-16.2.0":
+                arguments.append("--with-build-time-tools=" + str(build_tools))
         if arguments[0] == "make":
             arguments += ["CC_FOR_BUILD=" + env["CC_FOR_BUILD"],
                           "CXX_FOR_BUILD=" + env["CXX_FOR_BUILD"],
@@ -193,6 +208,10 @@ def main():
             fixed = data.replace(b"__unused__", b"CTAGS_UNUSED").replace(b"__printf__", b"CTAGS_PRINTF")
             if fixed != data:
                 path.write_bytes(fixed)
+        if 'getenv ("TEMP")' not in (source / "routines.c").read_text():
+            command(["patch", "--batch", "--forward", "-p1", "-i",
+                     base.PATCHES / "ctags-5.8-arduino11-tempdir.patch"],
+                    source, base.WORK / "ctags.log", env)
         folder = base.WORK / "build/ctags"
         config = folder / "config.h"
         if config.exists() and not re.search(r'^#define TMPDIR "/tmp"$', config.read_text(), re.M):
