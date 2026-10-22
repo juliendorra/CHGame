@@ -59,7 +59,7 @@ def main():
                                   env=no_tmpdir, text=True)
     assert all(any(line.startswith(name + "\t") for line in tags.splitlines()) for name in ("setup", "loop"))
     examples = repo / "platform/board/arduino/CHGame/libraries/CHGame/examples"
-    sketches = sorted([*(examples / "Games").rglob("*.ino"), *(examples / "Apps").rglob("*.ino")])
+    sketches = sorted([*(examples / "Games").glob("*/*.ino"), *(examples / "Apps").glob("*/*.ino")])
     assert len(sketches) == 23, len(sketches)
     results = []
     for sketch in sketches:
