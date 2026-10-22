@@ -41,7 +41,8 @@ $tags = & (Join-Path $prefix 'bin/ctags.exe') -u --language-force=c++ -f - --c++
 if ($LASTEXITCODE -ne 0 -or -not ($tags -match '^setup\s') -or -not ($tags -match '^loop\s')) { throw 'Arduino ctags prototype test failed' }
 if ($null -ne $oldTmpdir) { $env:TMPDIR = $oldTmpdir }
 $examples = Join-Path $Repo 'platform/board/arduino/CHGame/libraries/CHGame/examples'
-$sketches = @(Get-ChildItem -LiteralPath (Join-Path $examples 'Games'),(Join-Path $examples 'Apps') -Filter '*.ino' -File -Recurse | Sort-Object FullName)
+$categories = @((Join-Path $examples 'Games'), (Join-Path $examples 'Apps'))
+$sketches = @(Get-ChildItem -LiteralPath $categories -Filter '*.ino' -File -Recurse | Where-Object { $_.Directory.Parent.FullName -in $categories } | Sort-Object FullName)
 if ($sketches.Count -ne 23) { throw "Expected 23 upstream examples, found $($sketches.Count)" }
 $results = @()
 foreach ($sketch in $sketches) {

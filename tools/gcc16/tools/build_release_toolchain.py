@@ -144,10 +144,19 @@ def main():
         config = base.WORK / "build/gcc/gcc/auto-host.h"
         top = base.WORK / "build/gcc"
         if config.exists() and "#define HAVE_LTO_PLUGIN 2" not in config.read_text():
-            for cache in top.rglob("config.cache"):
-                cache.unlink()
-            for rel in ("Makefile", "gcc/Makefile"):
-                (top / rel).unlink(missing_ok=True)
+            # configure prefers these previously generated wrappers over the
+            # explicit AS/LD_FOR_TARGET values. They can point at no tool at all.
+            for name in ("as", "collect-ld", "nm", "dsymutil"):
+                (top / "gcc" / name).unlink(missing_ok=True)
+            configured = (top / "Makefile").read_text() if (top / "Makefile").exists() else ""
+            native_probes = all(f"{name}_FOR_TARGET={build_tools / name.lower()}" in configured
+                                for name in ("AS", "LD"))
+            caches = [top / "gcc/config.cache"] if native_probes else top.rglob("config.cache")
+            for cache in caches:
+                cache.unlink(missing_ok=True)
+            (top / "gcc/Makefile").unlink(missing_ok=True)
+            if not native_probes:
+                (top / "Makefile").unlink(missing_ok=True)
     original_command = base.command
 
     def command(arguments, cwd, log, environment):
@@ -172,6 +181,10 @@ def main():
         if args.target_runtime and any(a in ("all-target-libgcc", "install-target-libgcc") for a in arguments):
             return
         original_command(arguments, cwd, log, environment)
+        if build_target and "configure-gcc" in arguments:
+            config = base.WORK / "build/gcc/gcc/auto-host.h"
+            if "#define HAVE_LTO_PLUGIN 2" not in config.read_text():
+                raise SystemExit("GCC did not enable default linker-plugin LTO; inspect gcc-configure.log")
 
     base.command = command
     jobs = max(1, args.jobs)
