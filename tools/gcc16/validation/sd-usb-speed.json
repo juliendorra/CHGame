@@ -1,0 +1,347 @@
+{
+  "started_at": "2026-10-22T20:14:00.332675+00:00",
+  "method": "same preallocated random file; 64 KiB writes; F_NOCACHE; fsync + F_FULLFSYNC; remount before reads",
+  "pass_order": [
+    [
+      "reference",
+      "original",
+      "variant"
+    ],
+    [
+      "variant",
+      "original",
+      "reference"
+    ]
+  ],
+  "file_bytes": 4194304,
+  "file_sha256": "759953639f96df789642a2e2ba1738d51659bada825011bc678d6d8e9f1261cc",
+  "temporary_filename": "CGC81FCC.BIN",
+  "volume_uuid": "F7081A3A-0225-32F3-8A43-9C10D8D65B34",
+  "volume_name": "NO NAME",
+  "images": {
+    "reference": {
+      "path": "CHSDtoUSB/out/compiler-control/original-gcc8/CHSDtoUSB.ino.bin",
+      "bytes": 43072,
+      "sha256": "559c6e945d2fc94d9aec87a05344824491720731fed7b4a8c28361a405782e65"
+    },
+    "original": {
+      "path": "CHSDtoUSB/out/compiler-control/original/CHSDtoUSB.ino.bin",
+      "bytes": 41028,
+      "sha256": "4220c8a7e582bb76954ec0b69f496f0942b7bc1d9bbb31f74e1e3a6175ac86af"
+    },
+    "variant": {
+      "path": "CHSDtoUSB/out/compiler-control/variant/CHSDtoUSB.ino.bin",
+      "bytes": 41644,
+      "sha256": "04752efbdd4b201fe8bb6676b47eea37ea0049741ca674379ad872809efa92ac"
+    }
+  },
+  "samples": [
+    {
+      "kind": "reference",
+      "pair": 1,
+      "trial": 1,
+      "included_initial_file_creation": false,
+      "write_seconds": 14.765940666999995,
+      "read_seconds": 9.17639408299965,
+      "write_KiB_s": 277.39512790770186,
+      "read_KiB_s": 446.3626957334278,
+      "sha256_verified": true,
+      "status": "R 10439 W 12261 RETRY 0 FAIL 0 WRETRY 0 WFAIL 0 CARD 245760 RW CONNECTED"
+    },
+    {
+      "kind": "reference",
+      "pair": 1,
+      "trial": 2,
+      "included_initial_file_creation": false,
+      "write_seconds": 20.30503229199985,
+      "read_seconds": 9.32215908299986,
+      "write_KiB_s": 201.72339256085877,
+      "read_KiB_s": 439.38319047457315,
+      "sha256_verified": true,
+      "status": "R 24705 W 24947 RETRY 0 FAIL 0 WRETRY 0 WFAIL 0 CARD 245760 RW CONNECTED"
+    },
+    {
+      "kind": "original",
+      "pair": 1,
+      "trial": 1,
+      "included_initial_file_creation": false,
+      "write_seconds": 13.241291165999428,
+      "read_seconds": 8.7326418749999,
+      "write_KiB_s": 309.3353924968873,
+      "read_KiB_s": 469.04477002843396,
+      "sha256_verified": true,
+      "status": "R 10453 W 12093 RETRY 0 FAIL 0 WRETRY 0 WFAIL 0 CARD 245760 RW CONNECTED"
+    },
+    {
+      "kind": "original",
+      "pair": 1,
+      "trial": 2,
+      "included_initial_file_creation": false,
+      "write_seconds": 14.002864584000235,
+      "read_seconds": 8.756622708000577,
+      "write_KiB_s": 292.51157685836057,
+      "read_KiB_s": 467.7602469109064,
+      "sha256_verified": true,
+      "status": "R 20555 W 24423 RETRY 0 FAIL 0 WRETRY 0 WFAIL 0 CARD 245760 RW CONNECTED"
+    },
+    {
+      "kind": "variant",
+      "pair": 1,
+      "trial": 1,
+      "included_initial_file_creation": false,
+      "write_seconds": 14.257091125000443,
+      "read_seconds": 8.66329691699957,
+      "write_KiB_s": 287.2956316325623,
+      "read_KiB_s": 472.7992171159015,
+      "sha256_verified": true,
+      "status": "R 10501 W 12332 RETRY 0 FAIL 0 WRETRY 0 WFAIL 0 CARD 245760 RW CONNECTED"
+    },
+    {
+      "kind": "variant",
+      "pair": 1,
+      "trial": 2,
+      "included_initial_file_creation": false,
+      "write_seconds": 13.628614209000261,
+      "read_seconds": 8.356044541999836,
+      "write_KiB_s": 300.54412995967147,
+      "read_KiB_s": 490.1840792509361,
+      "sha256_verified": true,
+      "status": "R 20296 W 24196 RETRY 0 FAIL 0 WRETRY 0 WFAIL 0 CARD 245760 RW CONNECTED"
+    },
+    {
+      "kind": "variant",
+      "pair": 2,
+      "trial": 1,
+      "included_initial_file_creation": false,
+      "write_seconds": 14.344045166000797,
+      "read_seconds": 8.700643416000275,
+      "write_KiB_s": 285.55403671682586,
+      "read_KiB_s": 470.7697815161065,
+      "sha256_verified": true,
+      "status": "R 10454 W 12229 RETRY 0 FAIL 0 WRETRY 0 WFAIL 0 CARD 245760 RW CONNECTED"
+    },
+    {
+      "kind": "variant",
+      "pair": 2,
+      "trial": 2,
+      "included_initial_file_creation": false,
+      "write_seconds": 14.851341666000735,
+      "read_seconds": 8.740811374999794,
+      "write_KiB_s": 275.799997880124,
+      "read_KiB_s": 468.60638266548756,
+      "sha256_verified": true,
+      "status": "R 20414 W 24536 RETRY 0 FAIL 0 WRETRY 0 WFAIL 0 CARD 245760 RW CONNECTED"
+    },
+    {
+      "kind": "original",
+      "pair": 2,
+      "trial": 1,
+      "included_initial_file_creation": false,
+      "write_seconds": 14.113733500000308,
+      "read_seconds": 8.33508458400047,
+      "write_KiB_s": 290.21378361720593,
+      "read_KiB_s": 491.41672873511527,
+      "sha256_verified": true,
+      "status": "R 10495 W 12132 RETRY 0 FAIL 0 WRETRY 0 WFAIL 0 CARD 245760 RW CONNECTED"
+    },
+    {
+      "kind": "original",
+      "pair": 2,
+      "trial": 2,
+      "included_initial_file_creation": false,
+      "write_seconds": 14.639729167000041,
+      "read_seconds": 8.653548541000418,
+      "write_KiB_s": 279.7865966832874,
+      "read_KiB_s": 473.3318338243781,
+      "sha256_verified": true,
+      "status": "R 20308 W 24291 RETRY 0 FAIL 0 WRETRY 0 WFAIL 0 CARD 245760 RW CONNECTED"
+    },
+    {
+      "kind": "reference",
+      "pair": 2,
+      "trial": 1,
+      "included_initial_file_creation": false,
+      "write_seconds": 14.98597858300036,
+      "read_seconds": 9.146826082999723,
+      "write_KiB_s": 273.3221575964601,
+      "read_KiB_s": 447.80560631985986,
+      "sha256_verified": true,
+      "status": "R 10456 W 12245 RETRY 0 FAIL 0 WRETRY 0 WFAIL 0 CARD 245760 RW CONNECTED"
+    },
+    {
+      "kind": "reference",
+      "pair": 2,
+      "trial": 2,
+      "included_initial_file_creation": false,
+      "write_seconds": 15.133787624999968,
+      "read_seconds": 8.844615832999807,
+      "write_KiB_s": 270.6526681551743,
+      "read_KiB_s": 463.1066037619827,
+      "sha256_verified": true,
+      "status": "R 20346 W 24491 RETRY 0 FAIL 0 WRETRY 0 WFAIL 0 CARD 245760 RW CONNECTED"
+    }
+  ],
+  "uploads": [
+    {
+      "kind": "reference",
+      "pair": 1,
+      "bytes": 43072,
+      "crc32": 2806989659,
+      "chunk": 256,
+      "erase_s": 0.003529541000716563,
+      "write_s": 1.3966671250000218,
+      "total_s": 1.5244531250000364,
+      "kbps": 30.116338565640216,
+      "port": "/dev/cu.usbmodem101",
+      "app_port": "/dev/cu.usbmodem101"
+    },
+    {
+      "kind": "original",
+      "pair": 1,
+      "bytes": 41028,
+      "crc32": 2417762094,
+      "chunk": 256,
+      "erase_s": 0.0035198329997001565,
+      "write_s": 1.3512948750003488,
+      "total_s": 1.4777184169997781,
+      "kbps": 29.650379788489655,
+      "port": "/dev/cu.usbmodem101",
+      "app_port": "/dev/cu.usbmodem101"
+    },
+    {
+      "kind": "variant",
+      "pair": 1,
+      "bytes": 41644,
+      "crc32": 3382778517,
+      "chunk": 256,
+      "erase_s": 0.0034754999996948754,
+      "write_s": 1.383913333000237,
+      "total_s": 1.5119814579993545,
+      "kbps": 29.386210668145242,
+      "port": "/dev/cu.usbmodem101",
+      "app_port": "/dev/cu.usbmodem101"
+    },
+    {
+      "kind": "variant",
+      "pair": 2,
+      "bytes": 41644,
+      "crc32": 3382778517,
+      "chunk": 256,
+      "erase_s": 0.0035319590006110957,
+      "write_s": 0.6471958329993868,
+      "total_s": 0.7709635840001283,
+      "kbps": 62.8371918921773,
+      "port": "/dev/cu.usbmodem101",
+      "app_port": "/dev/cu.usbmodem101"
+    },
+    {
+      "kind": "original",
+      "pair": 2,
+      "bytes": 41028,
+      "crc32": 2417762094,
+      "chunk": 256,
+      "erase_s": 0.0035348749997865525,
+      "write_s": 1.3468384159996276,
+      "total_s": 1.4732331249997515,
+      "kbps": 29.748487846823547,
+      "port": "/dev/cu.usbmodem101",
+      "app_port": "/dev/cu.usbmodem101"
+    },
+    {
+      "kind": "reference",
+      "pair": 2,
+      "bytes": 43072,
+      "crc32": 2806989659,
+      "chunk": 256,
+      "erase_s": 0.0034752089995890856,
+      "write_s": 1.408595083000364,
+      "total_s": 1.5364460839991807,
+      "kbps": 29.861313948651013,
+      "port": "/dev/cu.usbmodem101",
+      "app_port": "/dev/cu.usbmodem101"
+    },
+    {
+      "kind": "variant",
+      "purpose": "restore after benchmark",
+      "bytes": 41644,
+      "crc32": 3382778517,
+      "chunk": 256,
+      "erase_s": 0.0035201249993406236,
+      "write_s": 1.355559708000328,
+      "total_s": 1.4836732499998107,
+      "kbps": 30.000868652249846,
+      "port": "/dev/cu.usbmodem101",
+      "app_port": "/dev/cu.usbmodem101"
+    }
+  ],
+  "preserved_card_files": {
+    "GAMES/APPS/SDCARDRE.CHG": "fca3aa40f4dce3f9e77093028b0032f1c13116068138ee9d79ec2308d7f4f076",
+    "GAMES/APPS/SDUSBBRI.CHG": "67a56b8f5ad920b47f6a95a10581f6b094438a4762c5a02ead86dbab37fd361d",
+    "GAMES/APPS/MENU.IDX": "f59a037f19d79b90e9ef0e4de4540997f7d98458a2ec894de0e3b0577aac3be8"
+  },
+  "temporary_file_removed": true,
+  "both_apps_and_menu_unchanged": true,
+  "left_running": "variant",
+  "summary": {
+    "reference": {
+      "samples": 4,
+      "write_KiB_s_median": 271.9874128758172,
+      "write_KiB_s_min": 201.72339256085877,
+      "write_KiB_s_max": 277.39512790770186,
+      "read_KiB_s_median": 447.08415102664384,
+      "read_KiB_s_min": 439.38319047457315,
+      "read_KiB_s_max": 463.1066037619827
+    },
+    "original": {
+      "samples": 4,
+      "write_KiB_s_median": 291.36268023778325,
+      "write_KiB_s_min": 279.7865966832874,
+      "write_KiB_s_max": 309.3353924968873,
+      "read_KiB_s_median": 471.18830192640604,
+      "read_KiB_s_min": 467.7602469109064,
+      "read_KiB_s_max": 491.41672873511527
+    },
+    "variant": {
+      "samples": 4,
+      "write_KiB_s_median": 286.42483417469407,
+      "write_KiB_s_min": 275.799997880124,
+      "write_KiB_s_max": 300.54412995967147,
+      "read_KiB_s_median": 471.78449931600403,
+      "read_KiB_s_min": 468.60638266548756,
+      "read_KiB_s_max": 490.1840792509361
+    }
+  },
+  "finished_at": "2026-10-22T20:21:42.587525+00:00",
+  "labels": {
+    "reference": "Original source rebuilt with GCC 8.2.0",
+    "original": "Original source rebuilt with GCC 16.2.0",
+    "variant": "Our variant rebuilt with GCC 16.2.0"
+  },
+  "comparison_percent": {
+    "toolchain_same_original_source": {
+      "read": 5.391412521426142,
+      "write": 7.123589712150502
+    },
+    "our_changes_same_gcc16_toolchain": {
+      "read": 0.12653060085754397,
+      "write": -1.69474211970434
+    }
+  },
+  "controls": {
+    "normalized_compile_commands_identical_for_gcc16_original_and_variant": true,
+    "compilation_units_compared": 93,
+    "shared_core_and_library_objects_byte_identical": true,
+    "variant_binary_reproduced_previous_tested_image": true,
+    "gcc8_and_gcc16_original_source_inputs_identical": true,
+    "source_revision": "e1f8d05940ddb7bbef89c13326da75c003f02904",
+    "fqbn": "CHGame:ch32v:rev0:opt=osstd",
+    "optimization": "-Os, no LTO",
+    "clock_hz": 48000000,
+    "usb": "Serial"
+  },
+  "limitations": [
+    "Four 4 MiB write/read trials per build, one Mac and one FAT16 card; overlapping ranges do not establish a small speed advantage.",
+    "Compiler comparison includes the associated linker/compiler runtime, so toolchain is the precise term.",
+    "GCC 8.2 rebuild is from the same source and settings as the GCC 16 rebuild. Its image has the same size but a different hash from the distributed SD-card binary; it is used as a controlled compiler baseline rather than claiming to reproduce that distributed image."
+  ]
+}

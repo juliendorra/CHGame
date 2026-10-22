@@ -9,6 +9,13 @@ The official board package remains the default. The installer selects this
 compiler using reversible Arduino local overrides. The existing CHGame 0.3.0
 C/printf runtime is an external dependency; it is not redistributed here.
 
+## Measured benefit
+
+Rebuilding the unchanged upstream SD-to-USB app improved median reads by
+**5.39%** and writes by **7.12%** on one tested Mac/card, while reducing its
+firmware size by **4.75%**. [Measurements and controls](BENCHMARKS.md) distinguish
+the toolchain improvement from app source changes.
+
 ## Status
 
 | Host | Completed validation |
