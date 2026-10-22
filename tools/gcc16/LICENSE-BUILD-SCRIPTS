@@ -1,4 +1,4 @@
-The independently written Python build, fetch, installation, packaging and
+The independently written build, fetch, installation, packaging and
 validation scripts and hardware validation fixtures supplied with this release
 use the MIT License below.
 GNU sources, derived compiler patches, ctags, third-party runtime files and

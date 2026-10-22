@@ -15,7 +15,7 @@ PATCH_NAMES = ("binutils-2.47-xwchc.patch", "gcc-16.2-xwchc.patch",
                "gcc-16.2-wch-fast-interrupt.patch", "binutils-xwchc-upstream.patch", "README.md", "COPYING3")
 SCRIPTS = ("build_current_gcc.py", "build_release_toolchain.py", "verify_current_gcc.py",
            "install_release_toolchain.py", "package_release_toolchain.py", "fetch_board_runtime.py",
-           "audit_release_toolchain.py", "fetch_host_runtime_sources.py", "test_release_installer.py")
+           "audit_release_toolchain.py", "fetch_host_runtime_sources.py", "test_release_installer.py", "test_windows_package.ps1")
 
 
 def support(root):
@@ -31,7 +31,7 @@ def support(root):
         dest = root / "tools/toolchain/patches" / name
         dest.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(base.PATCHES / name, dest)
-    for name in ("RELEASE.md", "RELEASE-VALIDATION.json"):
+    for name in ("RELEASE.md", "RELEASE-VALIDATION.json", "BENCHMARKS.md", "PORTING.md"):
         source = base.ROOT / "tools/toolchain" / name
         if not source.exists():
             source = base.ROOT / name
