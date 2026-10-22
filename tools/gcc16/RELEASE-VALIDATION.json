@@ -29,10 +29,11 @@
       "ctags_without_TMPDIR": true,
       "native_ci": true,
       "native_upstream_examples": 23,
-      "native_ci_run": "https://github.com/juliendorra/CHGame/actions/runs/39853639907",
+      "native_ci_run": "https://github.com/juliendorra/CHGame/actions/runs/39857532605",
       "native_environment": "Linux-6.8.0-1064-azure-x86_64-with-glibc2.35",
       "native_binary_hashes_verified": 47,
-      "native_firmware_identical_to_macos_arm64": 23
+      "native_firmware_identical_to_macos_arm64": 23,
+      "packaged_helper_matches": true
     },
     "windows-x86_64": {
       "status": "default linker-plugin LTO configuration being corrected; native validation pending",

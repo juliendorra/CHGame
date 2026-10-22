@@ -6,11 +6,12 @@
     "glibc",
     "2.35"
   ],
-  "archive_sha256": "1f5fdaf34f1cc3b7dcf8da19bdd4ce380235e264acb1cd68a6c8df00541fdba6",
+  "archive_sha256": "e94e66f2e95fd6d3b9604f33e8deec61b8759ed9cb9cca4fafa4aa2f552d8fd3",
   "compiler_checks": true,
   "installer_checks": true,
   "ctags_checks": true,
   "compatibility_alias": true,
+  "packaged_helper_matches": true,
   "upstream_examples": 23,
   "hardware_probe_compile": true,
   "physical_usb_or_ide_tested": false,
@@ -63,7 +64,6 @@
     "riscv-none-elf/bin/readelf": "d3a8783a90c8faf8f4ebee05aa0be47ba4cab997136f26fbcbf615b8d112e31c",
     "riscv-none-elf/bin/strip": "1d43faa9788462689f73019bbdd7e751fa8f767f42aefd2c333a2af17c169509"
   },
-  "ci_run": "https://github.com/juliendorra/CHGame/actions/runs/39853639907",
-  "ci_commit": "6984f6c",
+  "ci_run": "https://github.com/juliendorra/CHGame/actions/runs/39857532605",
   "firmware_identical_to_macos_arm64": 23
 }
