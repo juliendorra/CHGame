@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "port": "/dev/cu.usbmodem101",
+  "utc": "2026-10-22T14:28:35.460351+00:00",
+  "report": "PORTPROBE gcc=16.2.0 xw_cases=64 xw_errors=0 register_trials=20000 register_errors=0 software_irqs=20100 nested_ok=100 nested_fail=0 passes=1",
+  "fields": {
+    "gcc": "16.2.0",
+    "xw_cases": "64",
+    "xw_errors": "0",
+    "register_trials": "20000",
+    "register_errors": "0",
+    "software_irqs": "20100",
+    "nested_ok": "100",
+    "nested_fail": "0",
+    "passes": "1"
+  }
+}

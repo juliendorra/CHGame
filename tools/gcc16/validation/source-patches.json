@@ -1,0 +1,9 @@
+{
+  "method": "Extract touched original files from SHA-256-pinned GNU tarballs; apply the exact release series in order using patch --batch --forward -p1",
+  "all_applied_cleanly": true,
+  "patches": {
+    "binutils-2.47-xwchc.patch": "01cf6d074007154329f7550f218db180d8dbbae12e69410ec974104c546eb800",
+    "gcc-16.2-wch-fast-interrupt.patch": "119d4c0ef7c4456cf0c235c1b33a82a81c15976307f6b91a3e04ad2b41aab427",
+    "gcc-16.2-xwchc.patch": "17ae9db788f42764a2c9730d590d42e7421eb3eba748826bfdafa3f0151035f9"
+  }
+}

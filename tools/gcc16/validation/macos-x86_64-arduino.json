@@ -1,0 +1,7 @@
+{
+  "returncode": 0,
+  "image_bytes": 11372,
+  "sha256": "4463f5068dc61f09f727fe8554dae00662e172781e5bde3b5ee800fe38ff129b",
+  "byte_identical": true,
+  "scope": "Arduino CLI, Intel GCC and Intel ctags under macOS Rosetta; compatibility executable names used"
+}

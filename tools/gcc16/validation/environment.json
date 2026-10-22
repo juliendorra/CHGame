@@ -1,0 +1,23 @@
+{
+  "date_utc": "2026-10-22",
+  "reference_corpus_sha256": "eb4c892f37cf2cefc19b03628b8c6110bac20aa28f87e3105dafef9fbaee4db4",
+  "macos_host": "Apple silicon macOS 27.0.1; x86_64 tools executed using installed Rosetta 2",
+  "linux_execution_environment": "Ubuntu 22.04 x86_64 container under Rosetta in a native ARM64 Lima VZ Linux VM",
+  "windows_execution_environment": "Wine 6.0.3 x64 console execution in the same Linux environment",
+  "hosted_macos_ci_runs": 0,
+  "scope_notes": [
+    "Compiler/assembler/linker regression coverage, not the complete GNU DejaGNU test suites",
+    "C++17 container link tests do not execute the target program",
+    "Native Windows OS and Arduino IDE integration have not been tested"
+  ],
+  "source_recipe_commits": [
+    "d7d36bc",
+    "101c0c3"
+  ],
+  "windows_python": {
+    "version": "3.11.9 embedded AMD64",
+    "url": "https://www.python.org/ftp/python/3.11.9/python-3.11.9-embed-amd64.zip",
+    "sha256": "009d6bf7e3b2ddca3d784fa09f90fe54336d5b60f0e0f305c37f400bf83cfd3b"
+  },
+  "wine_windows_version": "Windows 10"
+}

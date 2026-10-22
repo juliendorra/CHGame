@@ -1,0 +1,407 @@
+{
+  "host": "macos-x86_64",
+  "files": {
+    "bin/ctags": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-addr2line": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-ar": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-as": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-c++": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-c++filt": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-cpp": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-elfedit": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-g++": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-gcc": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-gcc-16.2.0": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-gcc-ar": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-gcc-nm": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-gcc-ranlib": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-gcov": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libz.1.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-gcov-dump": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-gcov-tool": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-gprof": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-ld": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-ld.bfd": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-lto-dump": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libz.1.dylib",
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-nm": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-objcopy": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-objdump": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-ranlib": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-readelf": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libz.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-size": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-strings": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "bin/riscv-none-elf-strip": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/cc1": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libz.1.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/cc1plus": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libz.1.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/collect2": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/install-tools/fixincl": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/liblto_plugin.so": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/lto-wrapper": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/lto1": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libz.1.dylib",
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/plugin/gengtype": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libc++.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "riscv-none-elf/bin/ar": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "riscv-none-elf/bin/as": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "riscv-none-elf/bin/ld": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "riscv-none-elf/bin/ld.bfd": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "riscv-none-elf/bin/nm": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "riscv-none-elf/bin/objcopy": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "riscv-none-elf/bin/objdump": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "riscv-none-elf/bin/ranlib": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "riscv-none-elf/bin/readelf": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libz.1.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "minimum_macos": "14.0"
+    },
+    "riscv-none-elf/bin/strip": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "/usr/lib/libSystem.B.dylib",
+        "/usr/lib/libz.1.dylib"
+      ],
+      "minimum_macos": "14.0"
+    }
+  },
+  "external_dependencies": [
+    "/usr/lib/libSystem.B.dylib",
+    "/usr/lib/libc++.1.dylib",
+    "/usr/lib/libiconv.2.dylib",
+    "/usr/lib/libz.1.dylib"
+  ],
+  "versioned_symbols": []
+}

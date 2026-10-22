@@ -1,0 +1,359 @@
+{
+  "host": "linux-x86_64",
+  "files": {
+    "bin/ctags": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-addr2line": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-ar": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-as": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-c++": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ]
+    },
+    "bin/riscv-none-elf-c++filt": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-cpp": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ]
+    },
+    "bin/riscv-none-elf-elfedit": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-g++": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ]
+    },
+    "bin/riscv-none-elf-gcc": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ]
+    },
+    "bin/riscv-none-elf-gcc-16.2.0": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ]
+    },
+    "bin/riscv-none-elf-gcc-ar": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-gcc-nm": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-gcc-ranlib": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-gcov": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ]
+    },
+    "bin/riscv-none-elf-gcov-dump": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ]
+    },
+    "bin/riscv-none-elf-gcov-tool": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ]
+    },
+    "bin/riscv-none-elf-gprof": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-ld": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-ld.bfd": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-lto-dump": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libm.so.6",
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ]
+    },
+    "bin/riscv-none-elf-nm": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-objcopy": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-objdump": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-ranlib": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-readelf": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-size": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-strings": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "bin/riscv-none-elf-strip": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/cc1": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libm.so.6",
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ]
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/cc1plus": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libm.so.6",
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ]
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/collect2": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ]
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/install-tools/fixincl": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libc.so.6"
+      ]
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/liblto_plugin.so": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libc.so.6"
+      ]
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/lto-wrapper": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ]
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/lto1": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libm.so.6",
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ]
+    },
+    "libexec/gcc/riscv-none-elf/16.2.0/plugin/gengtype": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libc.so.6"
+      ]
+    },
+    "riscv-none-elf/bin/ar": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "riscv-none-elf/bin/as": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "riscv-none-elf/bin/ld": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "riscv-none-elf/bin/ld.bfd": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "riscv-none-elf/bin/nm": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "riscv-none-elf/bin/objcopy": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "riscv-none-elf/bin/objdump": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "riscv-none-elf/bin/ranlib": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "riscv-none-elf/bin/readelf": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    },
+    "riscv-none-elf/bin/strip": {
+      "architecture": "x86_64",
+      "dependencies": [
+        "libz.so.1",
+        "libc.so.6"
+      ]
+    }
+  },
+  "external_dependencies": [
+    "ld-linux-x86-64.so.2",
+    "libc.so.6",
+    "libm.so.6",
+    "libz.so.1"
+  ],
+  "versioned_symbols": [
+    "GLIBC_2.11",
+    "GLIBC_2.14",
+    "GLIBC_2.15",
+    "GLIBC_2.17",
+    "GLIBC_2.2.5",
+    "GLIBC_2.27",
+    "GLIBC_2.3",
+    "GLIBC_2.3.3",
+    "GLIBC_2.3.4",
+    "GLIBC_2.32",
+    "GLIBC_2.33",
+    "GLIBC_2.34",
+    "GLIBC_2.4",
+    "GLIBC_2.6",
+    "GLIBC_2.7",
+    "GLIBC_2.8"
+  ]
+}

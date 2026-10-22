@@ -1,0 +1,252 @@
+[
+  {
+    "sketch": "Ball",
+    "mode": "debug",
+    "compiled_sources": 87,
+    "image_bytes": 14708,
+    "sha256": "b591fb61c5a39f9010b5a7d5df0bb377855746353e2859eeace306312ea9e3c8",
+    "reference_sha256": "b591fb61c5a39f9010b5a7d5df0bb377855746353e2859eeace306312ea9e3c8",
+    "byte_identical": true,
+    "elapsed_s": 17.67
+  },
+  {
+    "sketch": "Ball",
+    "mode": "release",
+    "compiled_sources": 87,
+    "image_bytes": 11372,
+    "sha256": "4463f5068dc61f09f727fe8554dae00662e172781e5bde3b5ee800fe38ff129b",
+    "reference_sha256": "4463f5068dc61f09f727fe8554dae00662e172781e5bde3b5ee800fe38ff129b",
+    "byte_identical": true,
+    "elapsed_s": 13.15
+  },
+  {
+    "sketch": "CHBackgammon",
+    "mode": "release",
+    "compiled_sources": 105,
+    "image_bytes": 48856,
+    "sha256": "f2f8609437670033716f28d7522d040707b625492fa3d8039e0f493c923a56cd",
+    "reference_sha256": "f2f8609437670033716f28d7522d040707b625492fa3d8039e0f493c923a56cd",
+    "byte_identical": true,
+    "elapsed_s": 17.1
+  },
+  {
+    "sketch": "CHBingo",
+    "mode": "release",
+    "compiled_sources": 95,
+    "image_bytes": 36048,
+    "sha256": "420fe12e8ac49c7c62f5bf4d8d746c22b35999e9a7c7a967b38d1d7006e1a8db",
+    "reference_sha256": "420fe12e8ac49c7c62f5bf4d8d746c22b35999e9a7c7a967b38d1d7006e1a8db",
+    "byte_identical": true,
+    "elapsed_s": 15.84
+  },
+  {
+    "sketch": "CHBlackjack",
+    "mode": "release",
+    "compiled_sources": 97,
+    "image_bytes": 45908,
+    "sha256": "08e1083051f6c403b942f276f5e9f61551ab540355130d4b96231b4acfcd7a6c",
+    "reference_sha256": "08e1083051f6c403b942f276f5e9f61551ab540355130d4b96231b4acfcd7a6c",
+    "byte_identical": true,
+    "elapsed_s": 17.05
+  },
+  {
+    "sketch": "CHBoardwalk",
+    "mode": "release",
+    "compiled_sources": 100,
+    "image_bytes": 48912,
+    "sha256": "eff32e74c78a77ae707e22abea8b2fefedd0dbdf5c8322bb756457eeedd165e9",
+    "reference_sha256": "eff32e74c78a77ae707e22abea8b2fefedd0dbdf5c8322bb756457eeedd165e9",
+    "byte_identical": true,
+    "elapsed_s": 18.45
+  },
+  {
+    "sketch": "CHCheckers",
+    "mode": "release",
+    "compiled_sources": 96,
+    "image_bytes": 40576,
+    "sha256": "116b5880a3a1d5a789813a410ec752d10da2db0f67589cb552b1d4d344882bea",
+    "reference_sha256": "116b5880a3a1d5a789813a410ec752d10da2db0f67589cb552b1d4d344882bea",
+    "byte_identical": true,
+    "elapsed_s": 18.07
+  },
+  {
+    "sketch": "CHChess",
+    "mode": "release",
+    "compiled_sources": 96,
+    "image_bytes": 47236,
+    "sha256": "7a8d22e61ac1fe2b49d5984c957995854599d4def9355110279385702b169915",
+    "reference_sha256": "7a8d22e61ac1fe2b49d5984c957995854599d4def9355110279385702b169915",
+    "byte_identical": true,
+    "elapsed_s": 17.45
+  },
+  {
+    "sketch": "CHCraps",
+    "mode": "release",
+    "compiled_sources": 100,
+    "image_bytes": 49304,
+    "sha256": "6f03902ade9c9c2c5020b2bc6b9b9d155e3873e352761d08acbda6303ac66989",
+    "reference_sha256": "6f03902ade9c9c2c5020b2bc6b9b9d155e3873e352761d08acbda6303ac66989",
+    "byte_identical": true,
+    "elapsed_s": 15.28
+  },
+  {
+    "sketch": "CHCrossword",
+    "mode": "release",
+    "compiled_sources": 100,
+    "image_bytes": 49552,
+    "sha256": "2af843e4d8fd11fdc480c4e9d1c4c5a8804d9256834cb4bc82ee25534eeee84b",
+    "reference_sha256": "2af843e4d8fd11fdc480c4e9d1c4c5a8804d9256834cb4bc82ee25534eeee84b",
+    "byte_identical": true,
+    "elapsed_s": 15.55
+  },
+  {
+    "sketch": "CHDominoes",
+    "mode": "release",
+    "compiled_sources": 100,
+    "image_bytes": 42716,
+    "sha256": "ea880ac20fc59de9f718908eb378a72e76366292df64a63edf1c21cc51fa8c5c",
+    "reference_sha256": "ea880ac20fc59de9f718908eb378a72e76366292df64a63edf1c21cc51fa8c5c",
+    "byte_identical": true,
+    "elapsed_s": 14.59
+  },
+  {
+    "sketch": "CHFour",
+    "mode": "release",
+    "compiled_sources": 99,
+    "image_bytes": 35864,
+    "sha256": "c738b6e7b01ffb4468d1aa2f8405fbb79d6a4f50aca0ad4af3ea6859f82c5c49",
+    "reference_sha256": "c738b6e7b01ffb4468d1aa2f8405fbb79d6a4f50aca0ad4af3ea6859f82c5c49",
+    "byte_identical": true,
+    "elapsed_s": 13.05
+  },
+  {
+    "sketch": "CHMahjong",
+    "mode": "release",
+    "compiled_sources": 97,
+    "image_bytes": 47536,
+    "sha256": "564eb9aac0eaab0016eb347e6152decbb0e9416195048e16d4b0ff4aac482608",
+    "reference_sha256": "564eb9aac0eaab0016eb347e6152decbb0e9416195048e16d4b0ff4aac482608",
+    "byte_identical": true,
+    "elapsed_s": 15.81
+  },
+  {
+    "sketch": "CHPoker",
+    "mode": "release",
+    "compiled_sources": 98,
+    "image_bytes": 47804,
+    "sha256": "ceb6cd246b4418d82346a87d4bab9af796bb090692f1b4c424d62b0f3d28e976",
+    "reference_sha256": "ceb6cd246b4418d82346a87d4bab9af796bb090692f1b4c424d62b0f3d28e976",
+    "byte_identical": true,
+    "elapsed_s": 13.2
+  },
+  {
+    "sketch": "CHRoulette",
+    "mode": "release",
+    "compiled_sources": 105,
+    "image_bytes": 49448,
+    "sha256": "210c0590ba486d902c5469d950fc24a1ea392190427bb52b39ba68c289d378a2",
+    "reference_sha256": "210c0590ba486d902c5469d950fc24a1ea392190427bb52b39ba68c289d378a2",
+    "byte_identical": true,
+    "elapsed_s": 19.57
+  },
+  {
+    "sketch": "CHSDtoSerial",
+    "mode": "release",
+    "compiled_sources": 97,
+    "image_bytes": 44692,
+    "sha256": "2049fd8471588184351cba672a5f594d06421d582b5bb338aaf87d1915861430",
+    "reference_sha256": "2049fd8471588184351cba672a5f594d06421d582b5bb338aaf87d1915861430",
+    "byte_identical": true,
+    "elapsed_s": 14.16
+  },
+  {
+    "sketch": "CHSDtoUSB",
+    "mode": "release",
+    "compiled_sources": 93,
+    "image_bytes": 41028,
+    "sha256": "4220c8a7e582bb76954ec0b69f496f0942b7bc1d9bbb31f74e1e3a6175ac86af",
+    "reference_sha256": "4220c8a7e582bb76954ec0b69f496f0942b7bc1d9bbb31f74e1e3a6175ac86af",
+    "byte_identical": true,
+    "elapsed_s": 15.13
+  },
+  {
+    "sketch": "CHSlots",
+    "mode": "release",
+    "compiled_sources": 94,
+    "image_bytes": 47020,
+    "sha256": "6522c51ec7c4090f2f40e075ef80e42892511882b7507b848f427a6326a5dedb",
+    "reference_sha256": "6522c51ec7c4090f2f40e075ef80e42892511882b7507b848f427a6326a5dedb",
+    "byte_identical": true,
+    "elapsed_s": 13.0
+  },
+  {
+    "sketch": "CHSnakes",
+    "mode": "release",
+    "compiled_sources": 97,
+    "image_bytes": 36324,
+    "sha256": "704e86b53fa4945d62919d7b3d6c348672534603cd0826084cf5325b27f7e485",
+    "reference_sha256": "704e86b53fa4945d62919d7b3d6c348672534603cd0826084cf5325b27f7e485",
+    "byte_identical": true,
+    "elapsed_s": 16.62
+  },
+  {
+    "sketch": "CHSolitaire",
+    "mode": "release",
+    "compiled_sources": 94,
+    "image_bytes": 30656,
+    "sha256": "ca05e1b309f2a6725ef6a8e9a8f964a4a60afbc8e2066d109df45ec2c052ae01",
+    "reference_sha256": "ca05e1b309f2a6725ef6a8e9a8f964a4a60afbc8e2066d109df45ec2c052ae01",
+    "byte_identical": true,
+    "elapsed_s": 13.82
+  },
+  {
+    "sketch": "CHStlView",
+    "mode": "release",
+    "compiled_sources": 95,
+    "image_bytes": 30744,
+    "sha256": "0b4adb34c84297ee2ecf9ed0e0d9168622f7fcc96ef2f95bf2961299df4a056e",
+    "reference_sha256": "0b4adb34c84297ee2ecf9ed0e0d9168622f7fcc96ef2f95bf2961299df4a056e",
+    "byte_identical": true,
+    "elapsed_s": 15.46
+  },
+  {
+    "sketch": "CHTicTacToe",
+    "mode": "release",
+    "compiled_sources": 100,
+    "image_bytes": 49220,
+    "sha256": "e2b1c6177adc8985e99f988eee5005d34bd4502641c9daf26be96bc4c49d5e42",
+    "reference_sha256": "e2b1c6177adc8985e99f988eee5005d34bd4502641c9daf26be96bc4c49d5e42",
+    "byte_identical": true,
+    "elapsed_s": 16.0
+  },
+  {
+    "sketch": "CHWordWheel",
+    "mode": "release",
+    "compiled_sources": 107,
+    "image_bytes": 49580,
+    "sha256": "fe81db333912c0b23de34f01f50f9c58e3be00f273ad0839bab449a7dafd185f",
+    "reference_sha256": "fe81db333912c0b23de34f01f50f9c58e3be00f273ad0839bab449a7dafd185f",
+    "byte_identical": true,
+    "elapsed_s": 15.49
+  },
+  {
+    "sketch": "CHWords",
+    "mode": "release",
+    "compiled_sources": 103,
+    "image_bytes": 48860,
+    "sha256": "3a7d597ff4560e54175f6db148f09e2882698b1dd628cdab4518691ab21ecefb",
+    "reference_sha256": "3a7d597ff4560e54175f6db148f09e2882698b1dd628cdab4518691ab21ecefb",
+    "byte_identical": true,
+    "elapsed_s": 15.13
+  },
+  {
+    "sketch": "CHYacht",
+    "mode": "release",
+    "compiled_sources": 98,
+    "image_bytes": 43872,
+    "sha256": "2494cf6affb37bf12c2676b71306c14be22fddd75f7bd57da92ed60177b19332",
+    "reference_sha256": "2494cf6affb37bf12c2676b71306c14be22fddd75f7bd57da92ed60177b19332",
+    "byte_identical": true,
+    "elapsed_s": 14.8
+  }
+]

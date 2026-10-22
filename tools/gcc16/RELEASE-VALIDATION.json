@@ -1,0 +1,69 @@
+{
+  "release": "16.2.0-chgame.1",
+  "updated": "2026-10-22",
+  "status": "preview; cross-platform validation in progress",
+  "hosts": {
+    "macos-arm64": {
+      "status": "passed",
+      "compiler_checks": true,
+      "dependency_audit": true,
+      "firmware_identical": 25,
+      "extracted_install_checks": true
+    },
+    "macos-x86_64": {
+      "status": "passed under Rosetta 2",
+      "compiler_checks": true,
+      "dependency_audit": true,
+      "firmware_identical": 25,
+      "extracted_install_checks": true,
+      "arduino_cli_build": true
+    },
+    "linux-x86_64": {
+      "status": "compiler checks passed; firmware validation resuming after host reboot",
+      "compiler_checks": true,
+      "dependency_audit": true,
+      "firmware_identical": 5,
+      "firmware_total": 25,
+      "environment": "Ubuntu 22.04 amd64 under Linux Rosetta; native ARM64 VZ VM"
+    },
+    "windows-x86_64": {
+      "status": "build resumed after host reboot; executable validation pending",
+      "compiler_checks": false,
+      "dependency_audit": false,
+      "environment_planned": "Wine 6.0.3; native Windows and Arduino IDE not tested"
+    }
+  },
+  "compiler_check_scope": {
+    "vendor_encoding_cases": 8776,
+    "invalid_or_incompatible_cases": 10,
+    "fast_interrupt_optimizations": [
+      "Os",
+      "O2",
+      "O3"
+    ],
+    "plain_ar_lto_link": true,
+    "cpp17_container_link": true
+  },
+  "hardware_probe": {
+    "board": "CHGame Rev0 CH32X035",
+    "compiler_host": "macos-arm64",
+    "xw_cases": 64,
+    "register_trials": 20000,
+    "nested_preemptions": 100,
+    "errors": 0
+  },
+  "limits": [
+    "No complete GNU DejaGNU run",
+    "C++17 link tests do not execute RISC-V target code",
+    "C++23 modules are unvalidated",
+    "Vendor C runtime remains an external CHGame 0.3.0 dependency",
+    "25 firmware configurations include 23 upstream examples and two local Ball configurations; Ball sources are not part of the compiler contribution",
+    "Windows is not validated until its actual executable checks complete"
+  ],
+  "interruption": {
+    "mac_reboot_local": "2026-10-22 21:02:25 Europe/Paris",
+    "cause": "not established",
+    "build_objects_preserved": true
+  },
+  "hosted_macos_ci_runs": 0
+}

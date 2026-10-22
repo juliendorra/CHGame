@@ -1,0 +1,63 @@
+{
+  "assembler": {
+    "corpus_cases": 8776,
+    "compressed_cases": 8704,
+    "vendor_bytes": 17696,
+    "byte_identical": true,
+    "reference_sha256": "eb4c892f37cf2cefc19b03628b8c6110bac20aa28f87e3105dafef9fbaee4db4",
+    "standard_only_cases": 8776,
+    "rejected_invalid_cases": 10
+  },
+  "compiler": {
+    "interrupt_fixtures": [
+      {
+        "optimization": "-Os",
+        "function": "fast_leaf",
+        "passed": true
+      },
+      {
+        "optimization": "-Os",
+        "function": "fast_call",
+        "passed": true
+      },
+      {
+        "optimization": "-Os",
+        "function": "fast_large",
+        "passed": true
+      },
+      {
+        "optimization": "-O2",
+        "function": "fast_leaf",
+        "passed": true
+      },
+      {
+        "optimization": "-O2",
+        "function": "fast_call",
+        "passed": true
+      },
+      {
+        "optimization": "-O2",
+        "function": "fast_large",
+        "passed": true
+      },
+      {
+        "optimization": "-O3",
+        "function": "fast_leaf",
+        "passed": true
+      },
+      {
+        "optimization": "-O3",
+        "function": "fast_call",
+        "passed": true
+      },
+      {
+        "optimization": "-O3",
+        "function": "fast_large",
+        "passed": true
+      }
+    ],
+    "c_memory_forms_compressed": 4,
+    "lto_archive_link": true,
+    "cpp17_container_link": true
+  }
+}
