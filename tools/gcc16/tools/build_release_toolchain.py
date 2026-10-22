@@ -144,7 +144,9 @@ def main():
         config = base.WORK / "build/gcc/gcc/auto-host.h"
         top = base.WORK / "build/gcc"
         if config.exists() and "#define HAVE_LTO_PLUGIN 2" not in config.read_text():
-            for rel in ("Makefile", "config.cache", "gcc/Makefile", "gcc/config.cache"):
+            for cache in top.rglob("config.cache"):
+                cache.unlink()
+            for rel in ("Makefile", "gcc/Makefile"):
                 (top / rel).unlink(missing_ok=True)
     original_command = base.command
 

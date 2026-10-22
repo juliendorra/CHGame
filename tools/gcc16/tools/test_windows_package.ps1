@@ -46,8 +46,13 @@ if ($sketches.Count -ne 23) { throw "Expected 23 upstream examples, found $($ske
 $results = @()
 foreach ($sketch in $sketches) {
     Run -Program 'python' -Arguments @((Join-Path $Repo 'tools/chgame.py'),'--sketch',$sketch.Directory.FullName,'build')
+    $database = Get-Content -Raw -LiteralPath (Join-Path $sketch.Directory.FullName 'build/release/compile_commands.json') | ConvertFrom-Json
+    foreach ($entry in $database) {
+        $compiler = [IO.Path]::GetFullPath($entry.arguments[0])
+        if (-not $compiler.StartsWith($prefix + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { throw "Unexpected Arduino compiler: $compiler" }
+    }
     $image = Join-Path $sketch.Directory.FullName ('build/release/' + $sketch.Name + '.bin')
-    $results += [pscustomobject]@{sketch=$sketch.BaseName;image_bytes=(Get-Item -LiteralPath $image).Length;sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath $image).Hash.ToLowerInvariant()}
+    $results += [pscustomobject]@{sketch=$sketch.BaseName;compiler_commands_verified=$database.Count;image_bytes=(Get-Item -LiteralPath $image).Length;sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath $image).Hash.ToLowerInvariant()}
     $results | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $proof 'firmware.json') -Encoding utf8
 }
 $probe = Join-Path $prefix 'fixtures/PortProbe'

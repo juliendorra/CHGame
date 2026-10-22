@@ -64,9 +64,11 @@ def main():
     results = []
     for sketch in sketches:
         run("python3", repo / "tools/chgame.py", "--sketch", sketch.parent, "build")
+        database = json.loads((sketch.parent / "build/release/compile_commands.json").read_text())
+        assert all(Path(c["arguments"][0]).resolve().is_relative_to(prefix) for c in database)
         image = sketch.parent / "build/release" / (sketch.name + ".bin")
         results.append(dict(sketch=sketch.stem, image_bytes=image.stat().st_size,
-                            sha256=hashlib.sha256(image.read_bytes()).hexdigest()))
+                            sha256=hashlib.sha256(image.read_bytes()).hexdigest(), compiler_commands_verified=len(database)))
         (proof / "firmware.json").write_text(json.dumps(results, indent=2) + "\n")
     libraries = repo / "platform/board/arduino/CHGame/libraries"
     run("arduino-cli", "compile", "--fqbn", "CHGame:ch32v:rev0:opt=oslto,rtlib=nano,periph=game",

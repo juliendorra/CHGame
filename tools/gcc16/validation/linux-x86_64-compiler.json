@@ -58,6 +58,9 @@
     ],
     "c_memory_forms_compressed": 4,
     "lto_archive_link": true,
+    "lto_plugin_default": true,
+    "slim_lto_without_link_flag": true,
+    "unused_lto_global_removed": true,
     "cpp17_container_link": true
   }
 }
