@@ -28,6 +28,8 @@ def main():
     expanded.mkdir(parents=True, exist_ok=True)
     subprocess.run(["tar", "-xzf", str(a.archive.resolve()), "-C", str(expanded)], check=True)
     prefix, = expanded.glob("chgame-gcc-*-linux-x86_64")
+    if Path(__file__).read_text() != (prefix / "tools/test_linux_package.py").read_text():
+        raise SystemExit("Use the native test helper shipped with this archive")
     proof = work / "validation"
     proof.mkdir(parents=True, exist_ok=True)
     env = dict(os.environ, ARDUINO_DIRECTORIES_DATA=str(work / "Arduino data"),
@@ -79,7 +81,7 @@ def main():
     hashes = {name: hashlib.sha256((prefix / name).read_bytes()).hexdigest() for name in binaries}
     report = dict(passed=True, environment=platform.platform(), machine=platform.machine(),
                   libc=platform.libc_ver(), archive_sha256=digest, compiler_checks=True,
-                  installer_checks=True, ctags_checks=True, compatibility_alias=True,
+                  installer_checks=True, ctags_checks=True, compatibility_alias=True, packaged_helper_matches=True,
                   upstream_examples=len(results), hardware_probe_compile=True,
                   physical_usb_or_ide_tested=False, binary_sha256=hashes)
     (proof / "native-linux.json").write_text(json.dumps(report, indent=2) + "\n")

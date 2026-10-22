@@ -18,6 +18,8 @@ $expanded = Join-Path $Work 'Compiler with spaces'
 Expand-Archive -LiteralPath $Archive -DestinationPath $expanded -Force
 $prefix = (Get-ChildItem -LiteralPath $expanded -Directory | Where-Object Name -Like 'chgame-gcc-*windows-x86_64').FullName
 if (-not $prefix) { throw 'Missing Windows compiler prefix' }
+$packagedHelper = [IO.File]::ReadAllText((Join-Path $prefix 'tools/test_windows_package.ps1')).Replace("`r`n","`n")
+if ([IO.File]::ReadAllText($PSCommandPath).Replace("`r`n","`n") -cne $packagedHelper) { throw 'Use the native test helper shipped with this archive' }
 $proof = Join-Path $Work 'validation'
 New-Item -ItemType Directory -Force -Path $proof | Out-Null
 $env:ARDUINO_DIRECTORIES_DATA = Join-Path $Work 'Arduino data'
@@ -65,6 +67,6 @@ Get-ChildItem -LiteralPath $prefix -File -Recurse | Where-Object { $_.Extension 
     $relative = $_.FullName.Substring($prefix.Length + 1).Replace('\','/')
     $binaryHashes[$relative] = (Get-FileHash -Algorithm SHA256 -LiteralPath $_.FullName).Hash.ToLowerInvariant()
 }
-$report = [pscustomobject]@{passed=$true;binary_sha256=$binaryHashes;environment=[System.Runtime.InteropServices.RuntimeInformation]::OSDescription;processor=$env:PROCESSOR_ARCHITECTURE;archive_sha256=$hash;compiler_checks=$true;installer_checks=$true;ctags_checks=$true;compatibility_alias=$true;upstream_examples=$results.Count;hardware_probe_compile=$true;physical_usb_or_ide_tested=$false}
+$report = [pscustomobject]@{passed=$true;binary_sha256=$binaryHashes;environment=[System.Runtime.InteropServices.RuntimeInformation]::OSDescription;processor=$env:PROCESSOR_ARCHITECTURE;archive_sha256=$hash;compiler_checks=$true;installer_checks=$true;packaged_helper_matches=$true;ctags_checks=$true;compatibility_alias=$true;upstream_examples=$results.Count;hardware_probe_compile=$true;physical_usb_or_ide_tested=$false}
 $report | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $proof 'native-windows.json') -Encoding utf8
 Write-Output "Native Windows validation passed; reports in $proof"
