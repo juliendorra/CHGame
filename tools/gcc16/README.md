@@ -1,8 +1,8 @@
 # GCC 16.2 preview for CHGame
 
-An opt-in replacement for the board package's GCC 8.2 compiler. Supports
-Apple silicon, Intel Mac, Linux x86-64 and Windows x86-64, while retaining
-WCH compressed instructions and fast interrupts on CHGame Rev0.
+Build CHGame games with GCC 16.2 instead of the supplied GCC 8.2.
+Includes native Apple silicon support, plus Intel Mac, Linux and Windows
+builds. WCH compressed instructions and fast interrupts are preserved.
 
 **Why:** native Apple silicon builds, plus **5.39% faster reads, 7.12% faster
 writes and 4.75% smaller firmware** when rebuilding unchanged CHSDtoUSB source
@@ -17,6 +17,7 @@ on the tested Mac/card. [Benchmark and controls](BENCHMARKS.md).
 
 ## Use it
 
+[Download the preview](https://github.com/juliendorra/CHGame/releases/tag/gcc-16.2.0-chgame.1-preview).
 [Installation and build instructions](RELEASE.md) cover prerequisites, the
 reversible Arduino installer, all four hosts and source/binary packaging.
 The existing board package supplies the C runtime; compiler binaries are kept

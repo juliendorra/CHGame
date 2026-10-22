@@ -6,47 +6,21 @@ This is an independent compiler port for CHGame 0.3.0, not an official GNU,
 WCH, or CHGame release. LLVM experiments are outside this release.
 These preview binaries have no Developer ID notarization or Windows signing.
 
-## Downloads and scope
+## Download
 
-The local release directory contains one archive per validated host, a matching
-`-sources.tar.gz`, a small `-patch-kit.tar.gz` for review, and SHA-256 sidecars.
-The patch kit downloads the pinned upstream sources when building; the full
-source archive already includes them. Check `RELEASE-VALIDATION.json` for the
-actual execution environment and completed checks; a successful cross build
-alone is not runtime validation. macOS requires 14.4 or newer. Linux x86-64 requires glibc 2.34 or newer
-and system zlib; the tools were built and exercised on Ubuntu 22.04. Windows targets x86-64 Windows.
+[Get the preview](https://github.com/juliendorra/CHGame/releases/tag/gcc-16.2.0-chgame.1-preview) and verify its SHA-256 sidecar. Choose the archive for your computer:
 
-The binary archives contain the compiler, assembler/linker and other binutils,
-GCC's rebuilt RISC-V libgcc and C++ runtime, and Arduino's ctags helper. GNU
-source licenses and the GCC Runtime Library Exception accompany them. The source
-archive includes the exact original GNU and ctags tarballs, prerequisites,
-patches, build recipes, and checksums. Keep that archive alongside the binaries
-when sharing or mirroring this preview.
-It also includes the exact Ubuntu GCC 11.4/10.3, MinGW-w64 8.0 and zlib source
-packages/patches for the static Linux and Windows **host** runtime libraries. These are
-separate from the GCC 16.2 RISC-V libraries generated for firmware. Linux and
-Windows tools link their host C++ runtimes statically.
+| Computer | Archive suffix |
+|---|---|
+| Apple silicon Mac, macOS 14.4+ | `macos-arm64.tar.gz` |
+| Intel Mac, macOS 14.4+ | `macos-x86_64.tar.gz` |
+| Linux x86-64, glibc 2.34+ and zlib | `linux-x86_64.tar.gz` |
+| Windows x86-64 | `windows-x86_64.zip` |
 
-The CHGame package supplies its existing WCH C/printf runtime and C headers.
-Their exact corresponding patched source has not been recovered. These vendor
-files are **not included in the compiler download**: the installer checks and
-copies them from the user's installed CHGame 0.3.0 board package. This is a
-documented external dependency, not a claim that newlib has been rebuilt.
-
-The eight supported vendor memory forms are compressed byte/halfword loads and
-stores, with compact-register and stack-pointer variants. These encodings collide
-with floating-point compressed instructions; incompatible D/Zcb combinations are
-rejected. Hardware fast-interrupt saves, software preservation of the remaining
-registers, and `mret` are retained. This does not establish equivalence for every
-WCH processor or every proprietary extension. Ordinary C++17 container linking
-is tested; C++23 library modules remain unvalidated with the legacy C runtime.
-
-## Measured benefit
-
-On unchanged upstream CHSDtoUSB source, the GCC 16.2 toolchain produced median
-read/write improvements of **5.39% / 7.12%** and **4.75% smaller firmware** on
-one tested Mac/card. [Raw samples and controls](BENCHMARKS.md) document the
-conditions and separate toolchain effects from application source changes.
+Only packages already uploaded appear on the release page. The matching
+`-sources.tar.gz` contains upstream sources, patches and build scripts;
+`-patch-kit.tar.gz` is the smaller review kit. Keep the source archive alongside
+binaries when mirroring them. [Completed checks](RELEASE-VALIDATION.json).
 
 ## Install
 
@@ -80,6 +54,40 @@ Use the same `--arduino-data` option for restoration. Keep the extracted
 directory in place while it is selected. `bin/riscv-none-elf-gcc --version`
 should report GCC 16.2.0; `riscv-none-embed-*` compatibility names are included
 for the existing Arduino recipes. On Windows these are real EXE files.
+
+## Measured benefit
+
+On unchanged upstream CHSDtoUSB source, the GCC 16.2 toolchain produced median
+read/write improvements of **5.39% / 7.12%** and **4.75% smaller firmware** on
+one tested Mac/card. [Raw samples and controls](BENCHMARKS.md) document the
+conditions and separate toolchain effects from application source changes.
+
+## Contents and compatibility
+
+The binary archives contain the compiler, assembler/linker and other binutils,
+GCC's rebuilt RISC-V libgcc and C++ runtime, and Arduino's ctags helper. GNU
+source licenses and the GCC Runtime Library Exception accompany them. The source
+archive includes the exact original GNU and ctags tarballs, prerequisites,
+patches, build recipes, and checksums. Keep that archive alongside the binaries
+when sharing or mirroring this preview.
+It also includes the exact Ubuntu GCC 11.4/10.3, MinGW-w64 8.0 and zlib source
+packages/patches for the static Linux and Windows **host** runtime libraries. These are
+separate from the GCC 16.2 RISC-V libraries generated for firmware. Linux and
+Windows tools link their host C++ runtimes statically.
+
+The CHGame package supplies its existing WCH C/printf runtime and C headers.
+Their exact corresponding patched source has not been recovered. These vendor
+files are **not included in the compiler download**: the installer checks and
+copies them from the user's installed CHGame 0.3.0 board package. This is a
+documented external dependency, not a claim that newlib has been rebuilt.
+
+The eight supported vendor memory forms are compressed byte/halfword loads and
+stores, with compact-register and stack-pointer variants. These encodings collide
+with floating-point compressed instructions; incompatible D/Zcb combinations are
+rejected. Hardware fast-interrupt saves, software preservation of the remaining
+registers, and `mret` are retained. This does not establish equivalence for every
+WCH processor or every proprietary extension. Ordinary C++17 container linking
+is tested; C++23 library modules remain unvalidated with the legacy C runtime.
 
 ## Build from the included sources
 

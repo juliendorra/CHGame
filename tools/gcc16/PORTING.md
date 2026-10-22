@@ -89,6 +89,15 @@ RAM despite passing the initial link smoke test. Map comparison ruled out the
 first suspicion of different vendor libc overhead. GCC had configured
 HAVE_LTO_PLUGIN=0 because Linux could not probe Windows binutils. The corrected
 recipe supplies native build-time target tools with --with-build-time-tools.
+On the first retry, stale gcc/as and gcc/collect-ld wrappers took precedence
+over those explicit paths. Removing generated wrappers and the GCC configure
+cache is also necessary when resuming that failed configuration. The build now
+stops immediately if configure still disables the default plugin.
 The regression test now requires default plugin activation, slim LTO linking
 without an explicit link-time -flto, and removal of an unused global. A successful
 LTO-enabled link alone had been too weak a check.
+
+Native Linux package tests passed the compiler, installer and dependency checks,
+then caught a test-harness mistake: recursive sketch discovery included a nested
+Blackjack FlashProbe, giving 24 files rather than the 23 main examples. Both
+native runners now select sketches directly below Games/ and Apps/.
