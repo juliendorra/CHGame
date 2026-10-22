@@ -1,0 +1,64 @@
+name: Native GCC package validation
+on:
+  push:
+    branches:
+      - codex/gcc16-linux-validation
+      - codex/gcc16-windows-validation
+permissions:
+  contents: read
+env:
+  GH_TOKEN: ${{ github.token }}
+  RELEASE_TAG: gcc-16.2.0-chgame.1-preview
+  LINUX_SHA256: 1f5fdaf34f1cc3b7dcf8da19bdd4ce380235e264acb1cd68a6c8df00541fdba6
+  WINDOWS_SHA256: __WINDOWS_SHA256__
+jobs:
+  linux:
+    if: github.ref_name == 'codex/gcc16-linux-validation'
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - uses: arduino/setup-arduino-cli@81d310742121c928ea9c8bbd407b4217b432ae02
+        with:
+          version: '1.5.1'
+      - run: python -m pip install -e .
+      - name: Download verified compiler package
+        shell: bash
+        run: gh release download "$RELEASE_TAG" --repo juliendorra/CHGame --pattern '*linux-x86_64.tar.gz' --dir "$RUNNER_TEMP/downloads"
+      - name: Test compiler and all upstream examples
+        shell: bash
+        run: python tools/gcc16/tools/test_linux_package.py --archive "$RUNNER_TEMP/downloads/chgame-gcc-16.2.0-chgame.1-linux-x86_64.tar.gz" --sha256 "$LINUX_SHA256" --repo "$GITHUB_WORKSPACE" --work "$RUNNER_TEMP/CHGame Linux with spaces"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-linux-validation
+          path: ${{ runner.temp }}/CHGame Linux with spaces/validation
+          retention-days: 7
+  windows:
+    if: github.ref_name == 'codex/gcc16-windows-validation'
+    runs-on: windows-2022
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - uses: arduino/setup-arduino-cli@81d310742121c928ea9c8bbd407b4217b432ae02
+        with:
+          version: '1.5.1'
+      - run: python -m pip install -e .
+      - name: Download verified compiler package
+        shell: pwsh
+        run: gh release download $env:RELEASE_TAG --repo juliendorra/CHGame --pattern '*windows-x86_64.zip' --dir "$env:RUNNER_TEMP/downloads"
+      - name: Test compiler and all upstream examples
+        shell: pwsh
+        run: '& tools/gcc16/tools/test_windows_package.ps1 -Archive "$env:RUNNER_TEMP/downloads/chgame-gcc-16.2.0-chgame.1-windows-x86_64.zip" -ExpectedSha256 $env:WINDOWS_SHA256 -Repo $env:GITHUB_WORKSPACE -Work "$env:RUNNER_TEMP/CHGame Windows with spaces"'
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-windows-validation
+          path: ${{ runner.temp }}/CHGame Windows with spaces/validation
+          retention-days: 7
