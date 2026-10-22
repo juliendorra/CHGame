@@ -37,11 +37,11 @@ def finish(prefix, windows):
     suffix = ".exe" if windows else ""
     for program in (prefix / "bin").glob("riscv-none-elf-*" + suffix):
         alias = program.with_name(program.name.replace("riscv-none-elf-", "riscv-none-embed-"))
-        if not alias.exists():
-            if windows:
-                shutil.copy2(program, alias)
-            else:
-                alias.symlink_to(program.name)
+        if windows:
+            # EXE aliases are copies, so refresh them after resumed builds too.
+            shutil.copy2(program, alias)
+        elif not alias.exists():
+            alias.symlink_to(program.name)
     plugins = prefix / "lib/bfd-plugins"
     plugins.mkdir(parents=True, exist_ok=True)
     candidates = list((prefix / "libexec/gcc/riscv-none-elf/16.2.0").glob(
@@ -50,11 +50,10 @@ def finish(prefix, windows):
         raise SystemExit("Missing loadable LTO plugin; refusing an incomplete release")
     for plugin in candidates:
         destination = plugins / plugin.name
-        if not destination.exists():
-            if windows:
-                shutil.copy2(plugin, destination)
-            else:
-                destination.symlink_to(os.path.relpath(plugin, plugins))
+        if windows:
+            shutil.copy2(plugin, destination)
+        elif not destination.exists():
+            destination.symlink_to(os.path.relpath(plugin, plugins))
 
 
 def main():

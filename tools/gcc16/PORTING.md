@@ -101,3 +101,9 @@ Native Linux package tests passed the compiler, installer and dependency checks,
 then caught a test-harness mistake: recursive sketch discovery included a nested
 Blackjack FlashProbe, giving 24 files rather than the 23 main examples. Both
 native runners now select sketches directly below Games/ and Apps/.
+
+Build review also found that Windows compatibility EXEs and the binutils LTO
+plugin are copies rather than symlinks. They must be refreshed after incremental
+builds, or the Arduino aliases can retain the previous compiler even when the
+canonical riscv-none-elf executables have been rebuilt. The finish stage now
+refreshes those copies on every run.

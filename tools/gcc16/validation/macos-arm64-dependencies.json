@@ -6,7 +6,7 @@
       "dependencies": [
         "/usr/lib/libSystem.B.dylib"
       ],
-      "minimum_macos": "14.4"
+      "minimum_macos": "14.0"
     },
     "bin/riscv-none-elf-addr2line": {
       "architecture": "arm64",
