@@ -13,8 +13,8 @@ The local release directory contains one archive per validated host, a matching
 The patch kit downloads the pinned upstream sources when building; the full
 source archive already includes them. Check `RELEASE-VALIDATION.json` for the
 actual execution environment and completed checks; a successful cross build
-alone is not runtime validation. macOS requires 14.4 or newer. Linux x86-64 requires glibc 2.34 or newer and system zlib; the tools were
-built and exercised on Ubuntu 22.04. Windows targets x86-64 Windows.
+alone is not runtime validation. macOS requires 14.4 or newer. Linux x86-64 requires glibc 2.34 or newer
+and system zlib; the tools were built and exercised on Ubuntu 22.04. Windows targets x86-64 Windows.
 
 The binary archives contain the compiler, assembler/linker and other binutils,
 GCC's rebuilt RISC-V libgcc and C++ runtime, and Arduino's ctags helper. GNU
@@ -91,8 +91,8 @@ curl patch`. No Homebrew library is linked into the Mac distribution.
 
 The source archive already has every pinned upstream download under
 `.toolchains/current/downloads`; the builder verifies their hashes before
-extracting. It applies the three patches in `tools/toolchain/patches` and keeps
-build output under `.toolchains`. Supply the installed vendor runtime directory:
+extracting. It applies three GCC/binutils patches and one ctags patch from
+`tools/toolchain/patches`, and keeps build output under `.toolchains`. Supply the installed vendor runtime directory:
 
 ```sh
 python3 tools/build_release_toolchain.py --host macos-arm64 --jobs 2 \
@@ -124,6 +124,8 @@ they contain RISC-V code. Each host's compiler executables and LTO plugin are
 built separately. Specs generation also needs a Linux-hosted GCC 16.2 for the
 same target. This is found in the `--target-runtime` prefix by default; if target
 libraries come from a different host, supply `--build-target-compiler` explicitly.
+Its prefix must also contain matching Linux-hosted RISC-V binutils. These tools
+let configure test assembler/linker features, including default LTO plugin support.
 `--stage` supports resumable preparation/binutils/GCC/ctags
 steps. Do not reuse a configured build directory for a different host or flags.
 
@@ -140,7 +142,9 @@ The saved reference is the complete 8,776-instruction corpus captured from WCH
 GCC 8.2's assembler. The validator reports its SHA-256, compares every encoding,
 checks standard-only output and invalid operands, compiles fast-interrupt frame
 fixtures at three optimization levels, verifies C memory compression, and links
-both a plain-ar LTO archive and a C++17 container program. Firmware execution
+both a plain-ar LTO archive and a C++17 container program. It also checks that
+the linker plugin activates by default, accepts slim LTO objects without a
+link-time `-flto` flag, and removes an unused global. Firmware execution
 requires hardware; this script does not upload anything. Linux can additionally
 exercise Windows executables under Wine with `--runner wine --exe-suffix .exe`;
 that does not replace native Windows integration testing.
