@@ -13,7 +13,7 @@ on the tested Mac/card. [Benchmark and controls](BENCHMARKS.md).
 | Apple silicon | Compiler, 25 firmware builds and hardware probe pass |
 | Intel Mac | Compiler and 25 firmware matches pass under Rosetta |
 | Linux x86-64 | [Native CI passes](https://github.com/juliendorra/CHGame/actions/runs/39857532605): installation, compiler and 23 examples; 25 local firmware matches |
-| Windows x86-64 | Built; default LTO configuration being corrected before full/native validation |
+| Windows x86-64 | [Native CI passes](https://github.com/juliendorra/CHGame/actions/runs/39858619624): installation, compiler and 23 matching firmware images |
 
 ## Use it
 

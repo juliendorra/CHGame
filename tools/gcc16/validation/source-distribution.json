@@ -1,6 +1,5 @@
 {
   "status": "passed",
-  "source_files_with_verified_checksums": 108,
   "pinned_upstream_source_files": 21,
   "components": [
     "GCC 16.2.0",
@@ -19,5 +18,6 @@
     "VM disk and host caches",
     "credentials and local git metadata"
   ],
-  "note": "Checks describe source-distribution content; archive checksum changes when validation metadata is refreshed."
+  "note": "Checks describe source-distribution content; archive checksum changes when validation metadata is refreshed.",
+  "source_manifest": "SHA256SUMS.json records every regular source-distribution file; release sidecars record archive hashes."
 }

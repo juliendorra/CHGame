@@ -1,0 +1,140 @@
+[
+  {
+    "sketch": "CHSDtoSerial",
+    "compiler_commands_verified": 97,
+    "image_bytes": 44692,
+    "sha256": "2049fd8471588184351cba672a5f594d06421d582b5bb338aaf87d1915861430"
+  },
+  {
+    "sketch": "CHSDtoUSB",
+    "compiler_commands_verified": 93,
+    "image_bytes": 41028,
+    "sha256": "4220c8a7e582bb76954ec0b69f496f0942b7bc1d9bbb31f74e1e3a6175ac86af"
+  },
+  {
+    "sketch": "CHStlView",
+    "compiler_commands_verified": 95,
+    "image_bytes": 30744,
+    "sha256": "0b4adb34c84297ee2ecf9ed0e0d9168622f7fcc96ef2f95bf2961299df4a056e"
+  },
+  {
+    "sketch": "CHBackgammon",
+    "compiler_commands_verified": 105,
+    "image_bytes": 48856,
+    "sha256": "f2f8609437670033716f28d7522d040707b625492fa3d8039e0f493c923a56cd"
+  },
+  {
+    "sketch": "CHBingo",
+    "compiler_commands_verified": 95,
+    "image_bytes": 36048,
+    "sha256": "420fe12e8ac49c7c62f5bf4d8d746c22b35999e9a7c7a967b38d1d7006e1a8db"
+  },
+  {
+    "sketch": "CHBlackjack",
+    "compiler_commands_verified": 97,
+    "image_bytes": 45908,
+    "sha256": "08e1083051f6c403b942f276f5e9f61551ab540355130d4b96231b4acfcd7a6c"
+  },
+  {
+    "sketch": "CHBoardwalk",
+    "compiler_commands_verified": 100,
+    "image_bytes": 48912,
+    "sha256": "eff32e74c78a77ae707e22abea8b2fefedd0dbdf5c8322bb756457eeedd165e9"
+  },
+  {
+    "sketch": "CHCheckers",
+    "compiler_commands_verified": 96,
+    "image_bytes": 40576,
+    "sha256": "116b5880a3a1d5a789813a410ec752d10da2db0f67589cb552b1d4d344882bea"
+  },
+  {
+    "sketch": "CHChess",
+    "compiler_commands_verified": 96,
+    "image_bytes": 47236,
+    "sha256": "7a8d22e61ac1fe2b49d5984c957995854599d4def9355110279385702b169915"
+  },
+  {
+    "sketch": "CHCraps",
+    "compiler_commands_verified": 100,
+    "image_bytes": 49304,
+    "sha256": "6f03902ade9c9c2c5020b2bc6b9b9d155e3873e352761d08acbda6303ac66989"
+  },
+  {
+    "sketch": "CHCrossword",
+    "compiler_commands_verified": 100,
+    "image_bytes": 49552,
+    "sha256": "2af843e4d8fd11fdc480c4e9d1c4c5a8804d9256834cb4bc82ee25534eeee84b"
+  },
+  {
+    "sketch": "CHDominoes",
+    "compiler_commands_verified": 100,
+    "image_bytes": 42716,
+    "sha256": "ea880ac20fc59de9f718908eb378a72e76366292df64a63edf1c21cc51fa8c5c"
+  },
+  {
+    "sketch": "CHFour",
+    "compiler_commands_verified": 99,
+    "image_bytes": 35864,
+    "sha256": "c738b6e7b01ffb4468d1aa2f8405fbb79d6a4f50aca0ad4af3ea6859f82c5c49"
+  },
+  {
+    "sketch": "CHMahjong",
+    "compiler_commands_verified": 97,
+    "image_bytes": 47536,
+    "sha256": "564eb9aac0eaab0016eb347e6152decbb0e9416195048e16d4b0ff4aac482608"
+  },
+  {
+    "sketch": "CHPoker",
+    "compiler_commands_verified": 98,
+    "image_bytes": 47804,
+    "sha256": "ceb6cd246b4418d82346a87d4bab9af796bb090692f1b4c424d62b0f3d28e976"
+  },
+  {
+    "sketch": "CHRoulette",
+    "compiler_commands_verified": 105,
+    "image_bytes": 49448,
+    "sha256": "210c0590ba486d902c5469d950fc24a1ea392190427bb52b39ba68c289d378a2"
+  },
+  {
+    "sketch": "CHSlots",
+    "compiler_commands_verified": 94,
+    "image_bytes": 47020,
+    "sha256": "6522c51ec7c4090f2f40e075ef80e42892511882b7507b848f427a6326a5dedb"
+  },
+  {
+    "sketch": "CHSnakes",
+    "compiler_commands_verified": 97,
+    "image_bytes": 36324,
+    "sha256": "704e86b53fa4945d62919d7b3d6c348672534603cd0826084cf5325b27f7e485"
+  },
+  {
+    "sketch": "CHSolitaire",
+    "compiler_commands_verified": 94,
+    "image_bytes": 30656,
+    "sha256": "ca05e1b309f2a6725ef6a8e9a8f964a4a60afbc8e2066d109df45ec2c052ae01"
+  },
+  {
+    "sketch": "CHTicTacToe",
+    "compiler_commands_verified": 100,
+    "image_bytes": 49220,
+    "sha256": "e2b1c6177adc8985e99f988eee5005d34bd4502641c9daf26be96bc4c49d5e42"
+  },
+  {
+    "sketch": "CHWords",
+    "compiler_commands_verified": 103,
+    "image_bytes": 48860,
+    "sha256": "3a7d597ff4560e54175f6db148f09e2882698b1dd628cdab4518691ab21ecefb"
+  },
+  {
+    "sketch": "CHWordWheel",
+    "compiler_commands_verified": 107,
+    "image_bytes": 49580,
+    "sha256": "fe81db333912c0b23de34f01f50f9c58e3be00f273ad0839bab449a7dafd185f"
+  },
+  {
+    "sketch": "CHYacht",
+    "compiler_commands_verified": 98,
+    "image_bytes": 43872,
+    "sha256": "2494cf6affb37bf12c2676b71306c14be22fddd75f7bd57da92ed60177b19332"
+  }
+]

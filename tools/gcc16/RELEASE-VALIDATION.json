@@ -1,7 +1,7 @@
 {
   "release": "16.2.0-chgame.1",
   "updated": "2026-10-22",
-  "status": "preview; cross-platform validation in progress",
+  "status": "community preview; recorded validation passed on all four hosts",
   "hosts": {
     "macos-arm64": {
       "status": "passed",
@@ -36,13 +36,27 @@
       "packaged_helper_matches": true
     },
     "windows-x86_64": {
-      "status": "default linker-plugin LTO configuration being corrected; native validation pending",
-      "compiler_checks": false,
+      "status": "passed on native Windows Server 2022 and Wine 6.0.3",
+      "compiler_checks": true,
       "dependency_audit": true,
-      "environment_planned": "Wine 6.0.3; native Windows and Arduino IDE not tested",
-      "environment": "Wine 6.0.3 x64; Ubuntu 22.04 amd64 container under Linux Rosetta",
+      "environment": "Native Windows Server 2022 x86_64; Wine 6.0.3 under Linux Rosetta",
       "basic_checks_before_lto_fix": true,
-      "default_lto_plugin": false
+      "default_lto_plugin": true,
+      "ball_firmware_identical_under_wine": 2,
+      "native_ci": true,
+      "native_upstream_examples": 23,
+      "native_ci_run": "https://github.com/juliendorra/CHGame/actions/runs/39858619624",
+      "native_environment": "Microsoft Windows 10.0.20348",
+      "native_binary_hashes_verified": 75,
+      "native_firmware_identical_to_macos_arm64": 23,
+      "packaged_helper_matches": true,
+      "firmware_identical": 25,
+      "firmware_total": 25,
+      "firmware_environments": {
+        "native_windows": 23,
+        "Wine": 2
+      },
+      "extracted_install_checks": true
     }
   },
   "compiler_check_scope": {
@@ -54,7 +68,10 @@
       "O3"
     ],
     "plain_ar_lto_link": true,
-    "cpp17_container_link": true
+    "cpp17_container_link": true,
+    "default_lto_plugin": true,
+    "slim_lto_without_link_flag": true,
+    "unused_lto_global_removed": true
   },
   "hardware_probe": {
     "board": "CHGame Rev0 CH32X035",
@@ -70,12 +87,34 @@
     "C++23 modules are unvalidated",
     "Vendor C runtime remains an external CHGame 0.3.0 dependency",
     "25 firmware configurations include 23 upstream examples and two local Ball configurations; Ball sources are not part of the compiler contribution",
-    "Windows is not validated until its actual executable checks complete"
+    "Windows USB upload and Arduino IDE GUI are not tested; native Arduino CLI installation/builds are tested"
   ],
   "interruption": {
     "mac_reboot_local": "2026-10-22 21:02:25 Europe/Paris",
     "cause": "not established",
     "build_objects_preserved": true
   },
-  "hosted_macos_ci_runs": 0
+  "hosted_macos_ci_runs": 0,
+  "archives": {
+    "macos-arm64": {
+      "filename": "chgame-gcc-16.2.0-chgame.1-macos-arm64.tar.gz",
+      "bytes": 110708400,
+      "sha256": "f5446ea749d217f98f7e1896773fb994217ca6b21d43db54b70882e6e31da071"
+    },
+    "macos-x86_64": {
+      "filename": "chgame-gcc-16.2.0-chgame.1-macos-x86_64.tar.gz",
+      "bytes": 114013927,
+      "sha256": "c4199a743bcd284f15f11f935c029d587dae329e7adada554beb05ecd12c8ebf"
+    },
+    "linux-x86_64": {
+      "filename": "chgame-gcc-16.2.0-chgame.1-linux-x86_64.tar.gz",
+      "bytes": 132393913,
+      "sha256": "e94e66f2e95fd6d3b9604f33e8deec61b8759ed9cb9cca4fafa4aa2f552d8fd3"
+    },
+    "windows-x86_64": {
+      "filename": "chgame-gcc-16.2.0-chgame.1-windows-x86_64.zip",
+      "bytes": 172622138,
+      "sha256": "fdbb11abb824c8cfa8c3eca5c4834068e36d30ada367f41ccf968ec4426f596a"
+    }
+  }
 }
