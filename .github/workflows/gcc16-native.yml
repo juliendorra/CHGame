@@ -8,7 +8,7 @@ permissions:
   contents: read
 env:
   RELEASE_TAG: gcc-16.2.0-chgame.1-preview
-  LINUX_SHA256: 1f5fdaf34f1cc3b7dcf8da19bdd4ce380235e264acb1cd68a6c8df00541fdba6
+  LINUX_SHA256: e94e66f2e95fd6d3b9604f33e8deec61b8759ed9cb9cca4fafa4aa2f552d8fd3
   WINDOWS_SHA256: __WINDOWS_SHA256__
 jobs:
   linux:
@@ -30,9 +30,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
-        run: |
-          mkdir -p "$RUNNER_TEMP/downloads"
-          gh api -H 'Accept: application/octet-stream' repos/juliendorra/CHGame/releases/assets/667044169 > "$RUNNER_TEMP/downloads/chgame-gcc-16.2.0-chgame.1-linux-x86_64.tar.gz"
+        run: gh release download "$RELEASE_TAG" --repo juliendorra/CHGame --pattern '*linux-x86_64.tar.gz' --dir "$RUNNER_TEMP/downloads"
       - name: Test compiler and all upstream examples
         shell: bash
         run: python tools/gcc16/tools/test_linux_package.py --archive "$RUNNER_TEMP/downloads/chgame-gcc-16.2.0-chgame.1-linux-x86_64.tar.gz" --sha256 "$LINUX_SHA256" --repo "$GITHUB_WORKSPACE" --work "$RUNNER_TEMP/CHGame Linux with spaces"
