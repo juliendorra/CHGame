@@ -145,6 +145,11 @@ requires hardware; this script does not upload anything. Linux can additionally
 exercise Windows executables under Wine with `--runner wine --exe-suffix .exe`;
 that does not replace native Windows integration testing.
 
+For native Linux validation with Python 3.10+ and Arduino CLI installed, run
+`tools/test_linux_package.py --archive FILE --sha256 HASH --repo CHECKOUT
+--work EMPTY_FOLDER`. It uses isolated Arduino data and checks all 23 upstream
+examples, the hardware probe, compiler/ctags and installation.
+
 For native Windows validation with Python and Arduino CLI installed, run
 `tools/test_windows_package.ps1` in PowerShell, passing `-Archive`,
 `-ExpectedSha256`, `-Repo` (a CHGame checkout) and `-Work` (an empty test folder).

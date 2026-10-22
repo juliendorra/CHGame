@@ -12,10 +12,10 @@ import build_current_gcc as base
 
 VERSION = "16.2.0-chgame.1"
 PATCH_NAMES = ("binutils-2.47-xwchc.patch", "gcc-16.2-xwchc.patch",
-               "gcc-16.2-wch-fast-interrupt.patch", "binutils-xwchc-upstream.patch", "README.md", "COPYING3")
+               "gcc-16.2-wch-fast-interrupt.patch", "binutils-xwchc-upstream.patch", "ctags-5.8-arduino11-tempdir.patch", "README.md", "COPYING3")
 SCRIPTS = ("build_current_gcc.py", "build_release_toolchain.py", "verify_current_gcc.py",
            "install_release_toolchain.py", "package_release_toolchain.py", "fetch_board_runtime.py",
-           "audit_release_toolchain.py", "fetch_host_runtime_sources.py", "test_release_installer.py", "test_windows_package.ps1")
+           "audit_release_toolchain.py", "fetch_host_runtime_sources.py", "test_release_installer.py", "test_windows_package.ps1", "test_linux_package.py")
 
 
 def support(root):
@@ -150,7 +150,7 @@ def main():
                         vendor_runtime_sha256={n: base.sha(runtime / n) for n in sorted(vendor_names)},
                         vendor_runtime="External CHGame 0.3.0 RV32IMACXW dependency; not included",
                         upstream_board_commit="e1f8d05940ddb7bbef89c13326da75c003f02904",
-                        patches={n: base.sha(base.PATCHES / n) for n in PATCH_NAMES[:3]})
+                        patches={n: base.sha(base.PATCHES / n) for n in (*PATCH_NAMES[:3], "ctags-5.8-arduino11-tempdir.patch")})
         (root / "RELEASE.json").write_text(json.dumps(manifest, indent=2) + "\n")
     support(root)
     (root / "SHA256SUMS.json").write_text(json.dumps(checksums(root), indent=2) + "\n")

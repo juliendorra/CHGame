@@ -29,11 +29,13 @@
       "ctags_without_TMPDIR": true
     },
     "windows-x86_64": {
-      "status": "compiler checks passed under Wine; native Windows validation pending",
-      "compiler_checks": true,
+      "status": "default linker-plugin LTO configuration being corrected; native validation pending",
+      "compiler_checks": false,
       "dependency_audit": true,
       "environment_planned": "Wine 6.0.3; native Windows and Arduino IDE not tested",
-      "environment": "Wine 6.0.3 x64; Ubuntu 22.04 amd64 container under Linux Rosetta"
+      "environment": "Wine 6.0.3 x64; Ubuntu 22.04 amd64 container under Linux Rosetta",
+      "basic_checks_before_lto_fix": true,
+      "default_lto_plugin": false
     }
   },
   "compiler_check_scope": {
